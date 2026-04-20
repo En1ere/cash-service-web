@@ -1,2 +1,32 @@
-// TODO создать переменные для цветов и шрифтов
-$primary-color: #007bff;
+// Цвета текста
+$text-primary: #000000;
+$text-secondary: #333333;
+$text-accent: #1e3a5f;
+$text-accent-bright-blue: #4A90E2;
+
+// Цвета фона
+$background-primary: #ffffff;
+
+// Переменные для отступов между горизонтальными блоками
+$spacing-desktop: 20px;
+$spacing-mobile: 10px;
+
+// Переменные для скругления бордеров
+$border-radius-small: 4px;
+$border-radius-medium: 8px;
+$border-radius-large: 12px;
+
+// Переменные для размеров текста
+$font-size-h1: 48px;
+$font-size-h2: 36px;
+$font-size-h3: 24px;
+$font-size-h4: 18px;
+$font-size-body: 16px;
+$font-size-description: 14px;
+$font-size-small: 12px;
+
+// Переменные для padding кнопок
+$button-padding: 12px 24px;
+
+// Переменные для padding chips
+$chip-padding: 6px 12px;
