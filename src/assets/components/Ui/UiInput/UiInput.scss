@@ -1,0 +1,87 @@
+.ui-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: $font-size-body;
+    font-family:
+        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    border: 1px solid #e0e0e0;
+    border-radius: $border-radius-medium;
+    background-color: $background-primary;
+    color: $text-primary;
+    transition: all 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+
+    // Focus state
+    &:focus {
+        border-color: $text-accent-bright-blue;
+        box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        background-color: rgba(255, 255, 255, 0.95);
+    }
+
+    // Placeholder styling
+    &::placeholder {
+        color: #999999;
+    }
+
+    // Disabled state
+    &--disabled {
+        background-color: #f5f5f5;
+        color: #cccccc;
+        cursor: not-allowed;
+        border-color: #e8e8e8;
+
+        &::placeholder {
+            color: #bbbbbb;
+        }
+
+        &:focus {
+            box-shadow: none;
+            border-color: #e8e8e8;
+        }
+    }
+
+    // Error state
+    &--error {
+        border-color: #ff4757;
+
+        &:focus {
+            border-color: #ff4757;
+            box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.1);
+        }
+    }
+
+    // Outline variant
+    &--outline {
+        background-color: transparent;
+        border-color: #cccccc;
+
+        &:focus {
+            border-color: $text-accent-bright-blue;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        &.ui-input--error {
+            border-color: #ff4757;
+
+            &:focus {
+                border-color: #ff4757;
+            }
+        }
+    }
+
+    // Hover state
+    &:hover:not(:disabled) {
+        border-color: #d0d0d0;
+    }
+
+    // Default variant
+    &--default {
+        background-color: $background-primary;
+        border-color: #e0e0e0;
+
+        &:hover:not(:disabled) {
+            background-color: #fafafa;
+        }
+    }
+}
