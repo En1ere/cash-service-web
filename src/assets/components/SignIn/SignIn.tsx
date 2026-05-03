@@ -2,8 +2,6 @@ import { FormEvent, useState } from 'react'
 import UiInput from '../Ui/UiInput/UiInput'
 import UiButton from '../Ui/UiButton/UiButton'
 import './Auth.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchAuthSignUp } from '../../store/Auth/auth'
 
 interface AuthProps {
     onSubmit?: (credentials: { email: string; password: string }) => void
@@ -12,22 +10,28 @@ interface AuthProps {
 function Auth({ onSubmit }: AuthProps) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [name, setName] = useState('')
-    const [login, setLogin] = useState('')
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
-    const dispatch = useDispatch<any>()
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        console.log("event", event);
+        event.preventDefault()
+        setError('')
 
-        dispatch(fetchAuthSignUp({
-            name: name,
-            login: login,
-            email: email,
-            password: password
-        }))
+        if (!email.trim() || !password.trim()) {
+            setError('Пожалуйста, заполните все поля.')
+            return
+        }
 
+        setIsLoading(true)
+
+        try {
+            await new Promise((resolve) => setTimeout(resolve, 500))
+            onSubmit?.({ email: email.trim(), password: password.trim() })
+        } catch {
+            setError('Ошибка авторизации. Попробуйте ещё раз.')
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -40,28 +44,6 @@ function Auth({ onSubmit }: AuthProps) {
             </div>
 
             <form className="auth-block__form" onSubmit={handleSubmit}>
-                <label className="auth-block__field">
-                    <span className="auth-block__label">Name</span>
-                    <UiInput
-                        type="name"
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
-                        placeholder="Иван Иванов"
-                        disabled={isLoading}
-                    />
-                </label>
-
-                <label className="auth-block__field">
-                    <span className="auth-block__label">Login</span>
-                    <UiInput
-                        type="login"
-                        value={login}
-                        onChange={(event) => setLogin(event.target.value)}
-                        placeholder="login"
-                        disabled={isLoading}
-                    />
-                </label>
-
                 <label className="auth-block__field">
                     <span className="auth-block__label">Email</span>
                     <UiInput

@@ -4,12 +4,16 @@ import UiInput from '../../components/Ui/UiInput/UiInput'
 import UiButton from '../../components/Ui/UiButton/UiButton'
 import UiModal from '../../components/UiModals/UiModals'
 import UiPopover from '../../components/Ui/UiPopover/UiPopover'
+import Auth from '../../components/Auth/Auth'
 
 // В компоненте:
 
 function MainPage() {
     return (
         <div className="main-page">
+            <Auth>
+
+            </Auth>
             <UiPopover parentElement="#testst" position="down-center" size="m" theme="default">
                 <p>Контент поповера</p>
             </UiPopover>
