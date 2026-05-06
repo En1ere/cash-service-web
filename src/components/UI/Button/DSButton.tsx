@@ -1,5 +1,5 @@
 import React, {ButtonHTMLAttributes, ReactNode, forwardRef} from 'react';
-import cl from "./DSButton.module.scss"
+import cl from "./DSButton.module.css"
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
 
@@ -23,8 +23,6 @@ const DSButton = forwardRef<HTMLButtonElement, DSButtonProps>(
         const variantClass = cl[variant];
         const sizeClass = cl[`size-${size}`];
 
-        console.log("1>>>", variant)
-        console.log("2>>>", cl[variant])
         return (
             <button
                 ref={ref}
@@ -37,5 +35,7 @@ const DSButton = forwardRef<HTMLButtonElement, DSButtonProps>(
         );
     }
 );
+
+DSButton.displayName = 'DSButton';
 
 export default DSButton;

@@ -1,5 +1,5 @@
-import cl from "./page.module.scss"
-import DSButton from "../components/UI/button/DSButton";
+import cl from "./page.module.css"
+import DSButton from "@/components/UI/Button/DSButton";
 
 export default function Home() {
   return (

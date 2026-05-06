@@ -1,5 +1,4 @@
-@use '_variables' as *;
-
+@import './common/_variables.css';
 
 *, *::before, *::after {
     box-sizing: border-box;
@@ -85,8 +84,8 @@ table {
   }
 }
 * {
-    color: $primary-color;
+    color: var(--primary-color);
 }
 body {
-    background: $primary-bg-color;
+    background: var(--primary-bg-color);
 }

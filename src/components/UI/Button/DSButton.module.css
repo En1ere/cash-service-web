@@ -1,0 +1,97 @@
+.ds-button {
+    display: flex;
+    padding: 0 16px;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.primary {
+    border: 1px solid var(--secondary-color);
+    color: var(--dark-primary-color);
+    background: var(--secondary-color);
+
+    &:hover {
+        color: var(--secondary-color);
+        background: var(--dark-primary-color);
+    }
+    &:active {
+        background: var(--dark-primary-color);
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+    }
+}
+
+.secondary {
+    border: 1px solid var(--dark-primary-color);
+    color: var(--secondary-color);
+    background: var(--dark-primary-color);
+
+    &:hover {
+        border: 1px solid var(--secondary-color);
+    }
+    &:active {
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+    }
+}
+
+.outline {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+
+    &:hover {
+        color: var(--dark-primary-color);
+        background: var(--primary-color);
+        transition: all .3s;
+    }
+    &:active {
+        background: var(--primary-color-ghost);
+        border: 1px solid var(--primary-color-ghost);
+    }
+}
+
+.ghost {
+    border: 0;
+    color: var(--secondary-color);
+    background: var(--primary-color-ghost);
+
+    &:hover {
+        background: var(--primary-color);
+        color: var(--dark-primary-color);
+    }
+    &:active {
+        background: var(--primary-color-ghost);
+        color: var(--dark-primary-color);
+    }
+}
+
+.destructive {
+    border: 1px solid var(--red-primary-color);
+    color: var(--red-primary-color);
+    background: var(--dark-primary-color);
+
+    &:hover {
+        background: var(--red-primary-color);
+        color: var(--dark-primary-color);
+    }
+    &:active {
+        background: var(--red-primary-color-ghost);
+        border: 1px solid var(--red-primary-color-ghost);
+    }
+}
+
+.size-sm {
+    height: 24px;
+}
+
+.size-md {
+    height: 36px;
+}
+
+.size-lg {
+    height: 48px;
+}
