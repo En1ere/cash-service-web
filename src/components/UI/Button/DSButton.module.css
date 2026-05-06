@@ -84,6 +84,13 @@
     }
 }
 
+.empty {
+    border: 0;
+    background: transparent;
+    color: transparent;
+    padding: 4px;
+}
+
 .size-sm {
     height: 24px;
 }

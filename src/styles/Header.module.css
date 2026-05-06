@@ -1,0 +1,14 @@
+.header {
+    width: 100%;
+    z-index: 1;
+    background: var(--secondary-bg-color);
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.title {
+    color: var(--dark-primary-color);
+    font-size: 70px;
+}

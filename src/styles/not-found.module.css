@@ -1,0 +1,12 @@
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content {
+    font-size: 24px;
+}
+
+.title {
+    font-size: 62px;
+}

@@ -1,7 +1,7 @@
 import React, {ButtonHTMLAttributes, ReactNode, forwardRef} from 'react';
 import cl from "./DSButton.module.css"
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'empty' | 'destructive';
 
 interface DSButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'> {
     children: ReactNode;
