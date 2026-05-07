@@ -6,5 +6,16 @@
 }
 
 .authTitle {
+    margin: 0 0 32px;
+}
 
+.registrationBlock {
+    display: flex;
+    align-items: center;
+    margin: 16px 0 0;
+}
+
+.registrationButton {
+    color: var(--primary-color);
+    margin: 0 0 0 8px;
 }
