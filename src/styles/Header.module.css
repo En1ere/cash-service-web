@@ -1,7 +1,7 @@
 .header {
     width: 100%;
     z-index: 1;
-    background: var(--secondary-bg-color);
+    background: var(--primary-bg-color);
     height: 100px;
     display: flex;
     justify-content: space-around;
@@ -9,6 +9,6 @@
 }
 
 .title {
-    color: var(--dark-primary-color);
+    color: var(--secondary-color);
     font-size: 70px;
 }

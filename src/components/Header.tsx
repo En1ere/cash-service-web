@@ -1,5 +1,6 @@
 import React from 'react';
 import cl from '@/styles/Header.module.css'
+import AuthBlock from "@/components/features/auth/AuthBlock";
 
 const Header = () => {
     return (
@@ -7,8 +8,8 @@ const Header = () => {
             <div className={cl.title}>
                 Header
             </div>
-            <div className={cl.title}>
-                Auth Block
+            <div >
+                <AuthBlock />
             </div>
         </header>
     );
