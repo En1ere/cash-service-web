@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "RobotoRegular";
+    src: url("../../assets/fonts/RobotoforLearning-Regular_0.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: "RobotoBold";
+    src: url("../../assets/fonts/RobotoforLearning-Bold_0.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}

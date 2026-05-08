@@ -58,7 +58,12 @@ const DSInput = forwardRef<HTMLInputElement, DSInputProps>(
                         onMouseOver={() => setHoverCross(true)}
                         onMouseLeave={() => setHoverCross(false)}
                     >
-                        <IconCross className={cl.clearSvg} width={20} height={20} color={hoverCross ? 'var(--secondary-color)' : 'var(--primary-color)'}/>
+                        <IconCross
+                            width={20}
+                            height={20}
+                            color={hoverCross ? 'var(--secondary-color)' : 'var(--primary-color)'}
+                            className={cl.clearSvg}
+                        />
                     </DSButton>
                 </div>
             </div>

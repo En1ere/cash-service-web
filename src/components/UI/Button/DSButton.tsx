@@ -26,7 +26,7 @@ const DSButton = forwardRef<HTMLButtonElement, DSButtonProps>(
         return (
             <button
                 ref={ref}
-                className={`${cl['ds-button']} ${variantClass} ${sizeClass} ${className}`}
+                className={`${cl.dsButton} ${variantClass} ${sizeClass} ${className}`}
                 disabled={disabled}
                 {...props}
             >

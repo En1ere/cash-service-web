@@ -1,4 +1,4 @@
-.ds-button {
+.dsButton {
     display: flex;
     padding: 0 16px;
     justify-content: center;
@@ -83,15 +83,15 @@
 
 
 .size-sm {
-    height: 24px;
-}
-
-.size-md {
     height: 36px;
 }
 
+.size-md {
+    height: 50px;
+}
+
 .size-lg {
-    height: 48px;
+    height: 70px;
 }
 
 .empty {
