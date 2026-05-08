@@ -218,13 +218,14 @@ const DSPopover = ({
         }
     }
     const setCoords = (position: any) => {
-        // TODO поментяь на Set
+        // TODO поменять на Set
         if (idx === null) {
             setIdx(possiblePositions.indexOf(position))
         }
         if (tempIdx === null) {
             setTempIdx(possiblePositions.indexOf(position))
         }
+
         const x = getCoords().x
         const y = getCoords().y
         const parentWidth = getParentSize.width
@@ -245,213 +246,200 @@ const DSPopover = ({
             return
         }
 
+        let nextCoordsBlock = { x: 0, y: 0 }
+        let nextCoordsArrow = { x: 0, y: 0 }
+
         if (isSmallWidth && !withoutMobileView) {
             switch (position) {
                 case 'up-center':
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: mobileOffset,
                         y: y - selfHeight - elementDistance - verticalArrowHeight,
-                    })
-                    setCoordsArrow({
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth / 2 - verticalArrowWidth / 2,
                         y: y - elementDistance - verticalArrowHeight,
-                    })  
+                    }
                     break
                 case 'down-center':
-                    setCoordsBlock({
+                default:
+                    nextCoordsBlock = {
                         x: mobileOffset,
                         y: y + parentHeight + elementDistance + verticalArrowHeight,
-                    })
-
-                    setCoordsArrow({
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth / 2 - verticalArrowWidth / 2,
                         y: y + parentHeight + elementDistance,
-                    })
+                    }
                     break
             }
+
+            setCoordsBlock(nextCoordsBlock)
+            setCoordsArrow(nextCoordsArrow)
             setFinalPosition(position)
+
             if (!checkSpaceSmall) {
                 checkWindowFreeSpace(position)
                 setCheckSpaceSmall(false)
             }
-        } else {
+        }
+
+        else {
             switch (position) {
                 case 'up-center':
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x + parentWidth / 2 - selfWidth / 2,
-                        y: y - selfHeight - elementDistance - verticalArrowHeight
-                    })
-
-                    setCoordsArrow({
+                        y: y - selfHeight - elementDistance - verticalArrowHeight,
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth / 2 - verticalArrowWidth / 2,
                         y: y - elementDistance - verticalArrowHeight,
-                    })
+                    }
                     break
                 case 'down-center':
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x + parentWidth / 2 - selfWidth / 2,
-                        y: y + parentHeight + elementDistance + verticalArrowHeight
-                    })
-
-                    setCoordsArrow({
+                        y: y + parentHeight + elementDistance + verticalArrowHeight,
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth / 2 - verticalArrowWidth / 2,
                         y: y + parentHeight + elementDistance,
-                    })
+                    }
                     break
                 case 'left-center':
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x - selfWidth - elementDistance - horizontalArrowWidth,
-                        y: y + parentHeight / 2 - selfHeight / 2
-                    })
-
-                    setCoordsArrow({
+                        y: y + parentHeight / 2 - selfHeight / 2,
+                    }
+                    nextCoordsArrow = {
                         x: x - elementDistance - horizontalArrowWidth,
                         y: y + parentHeight / 2 - horizontalArrowHeight / 2,
-                    })
+                    }
                     break
                 case 'right-center':
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x + parentWidth + elementDistance + horizontalArrowWidth,
-                        y: y + parentHeight / 2 - selfHeight / 2
-                    })
-
-                    setCoordsArrow({
+                        y: y + parentHeight / 2 - selfHeight / 2,
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth + elementDistance,
                         y: y + parentHeight / 2 - horizontalArrowHeight / 2,
-                    })
+                    }
                     break
-
                 case 'up-left':
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x + parentWidth / 2 - verticalArrowWidth / 2 - selfOffset,
-                        y: y - selfHeight - elementDistance - verticalArrowHeight
-                    })
-
-                    setCoordsArrow({
+                        y: y - selfHeight - elementDistance - verticalArrowHeight,
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth / 2 - verticalArrowWidth / 2,
                         y: y - elementDistance - verticalArrowHeight,
-                    })
+                    }
                     break
                 case 'down-left':
-
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x + parentWidth / 2 - verticalArrowWidth / 2 - selfOffset,
-                        y: y + parentHeight + elementDistance + verticalArrowHeight
-                    })
-                    
-                    setCoordsArrow({
+                        y: y + parentHeight + elementDistance + verticalArrowHeight,
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth / 2 - verticalArrowWidth / 2,
                         y: y + parentHeight + elementDistance,
-                    })
+                    }
                     break
-
                 case 'up-right':
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x + parentWidth - selfWidth - parentWidth / 2 + selfOffset + verticalArrowWidth / 2,
-                        y: y - selfHeight - elementDistance - verticalArrowHeight
-                    })
-
-                    setCoordsArrow({
+                        y: y - selfHeight - elementDistance - verticalArrowHeight,
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth / 2 - verticalArrowWidth / 2,
                         y: y - elementDistance - verticalArrowHeight,
-                    })
+                    }
                     break
                 case 'down-right':
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x + parentWidth - selfWidth - parentWidth / 2 + selfOffset + verticalArrowWidth / 2,
-                        y: y + parentHeight + elementDistance + verticalArrowHeight
-                    })
-
-                    setCoordsArrow({
+                        y: y + parentHeight + elementDistance + verticalArrowHeight,
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth / 2 - verticalArrowWidth / 2,
                         y: y + parentHeight + elementDistance,
-                    })
+                    }
                     break
-
                 case 'left-up':
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x - selfWidth - elementDistance - horizontalArrowWidth,
-                        y: y - selfOffset
-                    })
-
-                    setCoordsArrow({
+                        y: y - selfOffset,
+                    }
+                    nextCoordsArrow = {
                         x: x - elementDistance - horizontalArrowWidth,
                         y: y + parentHeight / 2 - horizontalArrowHeight / 2,
-                    })
+                    }
                     break
                 case 'right-up':
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x + parentWidth + elementDistance + horizontalArrowWidth,
-                        y: y - selfOffset
-                    })
-
-                    setCoordsArrow({
+                        y: y - selfOffset,
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth + elementDistance,
                         y: y + parentHeight / 2 - horizontalArrowHeight / 2,
-                    })
+                    }
                     break
-
                 case 'left-down':
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x - selfWidth - elementDistance - horizontalArrowWidth,
-                        y: y + parentHeight - selfHeight - parentHeight / 2 + horizontalArrowHeight / 2 + selfOffset
-                    })    
-
-                    setCoordsArrow({
+                        y: y + parentHeight - selfHeight - parentHeight / 2 + horizontalArrowHeight / 2 + selfOffset,
+                    }
+                    nextCoordsArrow = {
                         x: x - elementDistance - horizontalArrowWidth,
                         y: y + parentHeight / 2 - horizontalArrowHeight / 2,
-                    })
+                    }
                     break
                 case 'right-down':
-
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x + parentWidth + elementDistance + horizontalArrowWidth,
-                        y: y + parentHeight - selfHeight - parentHeight / 2 + horizontalArrowHeight / 2 + selfOffset
-                    })
-
-                    setCoordsArrow({
+                        y: y + parentHeight - selfHeight - parentHeight / 2 + horizontalArrowHeight / 2 + selfOffset,
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth + elementDistance,
                         y: y + parentHeight / 2 - horizontalArrowHeight / 2,
-                    })
-
+                    }
                     break
-
                 default:
-                    setCoordsBlock({
+                    nextCoordsBlock = {
                         x: x + parentWidth / 2 - selfWidth / 2,
-                        y: y - selfHeight - elementDistance - verticalArrowHeight
-                    })
-
-                    setCoordsArrow({
+                        y: y - selfHeight - elementDistance - verticalArrowHeight,
+                    }
+                    nextCoordsArrow = {
                         x: x + parentWidth / 2 - verticalArrowWidth / 2,
                         y: y - elementDistance - verticalArrowHeight,
-                    })
+                    }
                     break
             }
-            // checkWindowFreeSpace(position)
-            setFinalPosition(position)
+        }
 
-            if (!hasFreeSpace) {
-                if (firstCheckComplete && idx === tempIdx) {
-                    setCircleComplete(true)
-                    return
-                }
+        setFinalPosition(position)
+        setCoordsBlock(nextCoordsBlock)
+        setCoordsArrow(nextCoordsArrow)
 
-                const currentIdx = tempIdx ?? 0
-                const nextIdx = (currentIdx + 1) % possiblePositions.length
-                const nextPosition = possiblePositions[nextIdx]
-
-                setTempIdx(nextIdx)
-                setFirstCheckComplete(true)
-                setFinalPosition(nextPosition)
-
-                setTimeout(() => {
-                    setCoords(nextPosition)
-                }, 0)
+        if (!hasFreeSpace) {
+            if (firstCheckComplete && idx === tempIdx) {
+                setCircleComplete(true)
+                return
             }
 
-            setCoordsBlock({x: coordsBlock.x + additionalOffsetBlock.x, y: coordsBlock.y + additionalOffsetBlock.y});
-            setCoordsArrow({x: coordsArrow.x + additionalOffsetArrow.x, y: coordsArrow.y + additionalOffsetArrow.y});
+            const currentIdx = tempIdx ?? 0
+            const nextIdx = (currentIdx + 1) % possiblePositions.length
+            const nextPosition = possiblePositions[nextIdx]
+
+            setTempIdx(nextIdx)
+            setFirstCheckComplete(true)
+            setFinalPosition(nextPosition)
+
+            setTimeout(() => {
+                setCoords(nextPosition)
+            }, 0)
         }
     }
     const checkWindowFreeSpace = (position: any) => {
