@@ -16,7 +16,7 @@
 
 .modal {
     position: relative;
-    background: var(--secondary-bg-color);
+    background-color: var(--white-primary-color);
     color: var(--dark-primary-color);
     border-radius: 20px;
     border: 0;
