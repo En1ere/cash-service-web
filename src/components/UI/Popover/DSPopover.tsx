@@ -1,9 +1,7 @@
 'use client'
-// TODO вынести все классы с дангными в переменную или функцию и передать в className 
 import cl from './DSPopover.module.css'
 import React, { useState, useRef, useEffect, useMemo } from 'react'
-
-// const sizeClass = cl[`size-${size}`];
+// TODO добавить типизацию
 
 const DSPopover = ({
     additionalClass = 'popover',
@@ -250,18 +248,25 @@ const DSPopover = ({
         if (isSmallWidth && !withoutMobileView) {
             switch (position) {
                 case 'up-center':
-                    coordsBlock.x = mobileOffset
-                    coordsBlock.y = y - selfHeight - elementDistance - verticalArrowHeight
-
-                    coordsArrow.x = x + parentWidth / 2 - verticalArrowWidth / 2
-                    coordsArrow.y = y - elementDistance - verticalArrowHeight
+                    setCoordsBlock({
+                        x: mobileOffset,
+                        y: y - selfHeight - elementDistance - verticalArrowHeight,
+                    })
+                    setCoordsArrow({
+                        x: x + parentWidth / 2 - verticalArrowWidth / 2,
+                        y: y - elementDistance - verticalArrowHeight,
+                    })  
                     break
                 case 'down-center':
-                    coordsBlock.x = mobileOffset
-                    coordsBlock.y = y + parentHeight + elementDistance + verticalArrowHeight
+                    setCoordsBlock({
+                        x: mobileOffset,
+                        y: y + parentHeight + elementDistance + verticalArrowHeight,
+                    })
 
-                    coordsArrow.x = x + parentWidth / 2 - verticalArrowWidth / 2
-                    coordsArrow.y = y + parentHeight + elementDistance
+                    setCoordsArrow({
+                        x: x + parentWidth / 2 - verticalArrowWidth / 2,
+                        y: y + parentHeight + elementDistance,
+                    })
                     break
             }
             setFinalPosition(position)
@@ -272,124 +277,155 @@ const DSPopover = ({
         } else {
             switch (position) {
                 case 'up-center':
-                    coordsBlock.x = x + parentWidth / 2 - selfWidth / 2
-                    coordsBlock.y = y - selfHeight - elementDistance - verticalArrowHeight
+                    setCoordsBlock({
+                        x: x + parentWidth / 2 - selfWidth / 2,
+                        y: y - selfHeight - elementDistance - verticalArrowHeight
+                    })
 
-                    coordsArrow.x = x + parentWidth / 2 - verticalArrowWidth / 2
-                    coordsArrow.y = y - elementDistance - verticalArrowHeight
+                    setCoordsArrow({
+                        x: x + parentWidth / 2 - verticalArrowWidth / 2,
+                        y: y - elementDistance - verticalArrowHeight,
+                    })
                     break
                 case 'down-center':
-                    coordsBlock.x = x + parentWidth / 2 - selfWidth / 2
-                    coordsBlock.y = y + parentHeight + elementDistance + verticalArrowHeight
+                    setCoordsBlock({
+                        x: x + parentWidth / 2 - selfWidth / 2,
+                        y: y + parentHeight + elementDistance + verticalArrowHeight
+                    })
 
-                    coordsArrow.x = x + parentWidth / 2 - verticalArrowWidth / 2
-                    coordsArrow.y = y + parentHeight + elementDistance
+                    setCoordsArrow({
+                        x: x + parentWidth / 2 - verticalArrowWidth / 2,
+                        y: y + parentHeight + elementDistance,
+                    })
                     break
                 case 'left-center':
-                    coordsBlock.x = x - selfWidth - elementDistance - horizontalArrowWidth
-                    coordsBlock.y = y + parentHeight / 2 - selfHeight / 2
+                    setCoordsBlock({
+                        x: x - selfWidth - elementDistance - horizontalArrowWidth,
+                        y: y + parentHeight / 2 - selfHeight / 2
+                    })
 
-                    coordsArrow.x = x - elementDistance - horizontalArrowWidth
-                    coordsArrow.y = y + parentHeight / 2 - horizontalArrowHeight / 2
+                    setCoordsArrow({
+                        x: x - elementDistance - horizontalArrowWidth,
+                        y: y + parentHeight / 2 - horizontalArrowHeight / 2,
+                    })
                     break
                 case 'right-center':
-                    coordsBlock.x = x + parentWidth + elementDistance + horizontalArrowWidth
-                    coordsBlock.y = y + parentHeight / 2 - selfHeight / 2
+                    setCoordsBlock({
+                        x: x + parentWidth + elementDistance + horizontalArrowWidth,
+                        y: y + parentHeight / 2 - selfHeight / 2
+                    })
 
-                    coordsArrow.x = x + parentWidth + elementDistance
-                    coordsArrow.y = y + parentHeight / 2 - horizontalArrowHeight / 2
+                    setCoordsArrow({
+                        x: x + parentWidth + elementDistance,
+                        y: y + parentHeight / 2 - horizontalArrowHeight / 2,
+                    })
                     break
 
                 case 'up-left':
-                    coordsBlock.y = y - selfHeight - elementDistance - verticalArrowHeight
-                    coordsBlock.x = x + parentWidth / 2 - verticalArrowWidth / 2 - selfOffset
+                    setCoordsBlock({
+                        x: x + parentWidth / 2 - verticalArrowWidth / 2 - selfOffset,
+                        y: y - selfHeight - elementDistance - verticalArrowHeight
+                    })
 
-                    coordsArrow.x = x + parentWidth / 2 - verticalArrowWidth / 2
-                    coordsArrow.y = y - elementDistance - verticalArrowHeight
+                    setCoordsArrow({
+                        x: x + parentWidth / 2 - verticalArrowWidth / 2,
+                        y: y - elementDistance - verticalArrowHeight,
+                    })
                     break
                 case 'down-left':
-                    coordsBlock.y = y + parentHeight + elementDistance + verticalArrowHeight
-                    coordsBlock.x = x + parentWidth / 2 - verticalArrowWidth / 2 - selfOffset
 
-                    coordsArrow.x = x + parentWidth / 2 - verticalArrowWidth / 2
-                    coordsArrow.y = y + parentHeight + elementDistance
+                    setCoordsBlock({
+                        x: x + parentWidth / 2 - verticalArrowWidth / 2 - selfOffset,
+                        y: y + parentHeight + elementDistance + verticalArrowHeight
+                    })
+                    
+                    setCoordsArrow({
+                        x: x + parentWidth / 2 - verticalArrowWidth / 2,
+                        y: y + parentHeight + elementDistance,
+                    })
                     break
 
                 case 'up-right':
-                    coordsBlock.y = y - selfHeight - elementDistance - verticalArrowHeight
-                    coordsBlock.x =
-                        x +
-                        parentWidth -
-                        selfWidth -
-                        parentWidth / 2 +
-                        selfOffset +
-                        verticalArrowWidth / 2
+                    setCoordsBlock({
+                        x: x + parentWidth - selfWidth - parentWidth / 2 + selfOffset + verticalArrowWidth / 2,
+                        y: y - selfHeight - elementDistance - verticalArrowHeight
+                    })
 
-                    coordsArrow.x = x + parentWidth / 2 - verticalArrowWidth / 2
-                    coordsArrow.y = y - elementDistance - verticalArrowHeight
+                    setCoordsArrow({
+                        x: x + parentWidth / 2 - verticalArrowWidth / 2,
+                        y: y - elementDistance - verticalArrowHeight,
+                    })
                     break
                 case 'down-right':
-                    coordsBlock.y = y + parentHeight + elementDistance + verticalArrowHeight
-                    coordsBlock.x =
-                        x +
-                        parentWidth -
-                        selfWidth -
-                        parentWidth / 2 +
-                        selfOffset +
-                        verticalArrowWidth / 2
+                    setCoordsBlock({
+                        x: x + parentWidth - selfWidth - parentWidth / 2 + selfOffset + verticalArrowWidth / 2,
+                        y: y + parentHeight + elementDistance + verticalArrowHeight
+                    })
 
-                    coordsArrow.x = x + parentWidth / 2 - verticalArrowWidth / 2
-                    coordsArrow.y = y + parentHeight + elementDistance
+                    setCoordsArrow({
+                        x: x + parentWidth / 2 - verticalArrowWidth / 2,
+                        y: y + parentHeight + elementDistance,
+                    })
                     break
 
                 case 'left-up':
-                    coordsBlock.x = x - selfWidth - elementDistance - horizontalArrowWidth
-                    coordsBlock.y = y - selfOffset
+                    setCoordsBlock({
+                        x: x - selfWidth - elementDistance - horizontalArrowWidth,
+                        y: y - selfOffset
+                    })
 
-                    coordsArrow.y = y + parentHeight / 2 - horizontalArrowHeight / 2
-                    coordsArrow.x = x - elementDistance - horizontalArrowWidth
+                    setCoordsArrow({
+                        x: x - elementDistance - horizontalArrowWidth,
+                        y: y + parentHeight / 2 - horizontalArrowHeight / 2,
+                    })
                     break
                 case 'right-up':
-                    coordsBlock.x = x + parentWidth + elementDistance + horizontalArrowWidth
-                    coordsBlock.y = y - selfOffset
+                    setCoordsBlock({
+                        x: x + parentWidth + elementDistance + horizontalArrowWidth,
+                        y: y - selfOffset
+                    })
 
-                    coordsArrow.y = y + parentHeight / 2 - horizontalArrowHeight / 2
-                    coordsArrow.x = x + parentWidth + elementDistance
+                    setCoordsArrow({
+                        x: x + parentWidth + elementDistance,
+                        y: y + parentHeight / 2 - horizontalArrowHeight / 2,
+                    })
                     break
 
                 case 'left-down':
-                    coordsBlock.x = x - selfWidth - elementDistance - horizontalArrowWidth
-                    coordsBlock.y =
-                        y +
-                        parentHeight -
-                        selfHeight -
-                        parentHeight / 2 +
-                        horizontalArrowHeight / 2 +
-                        selfOffset
+                    setCoordsBlock({
+                        x: x - selfWidth - elementDistance - horizontalArrowWidth,
+                        y: y + parentHeight - selfHeight - parentHeight / 2 + horizontalArrowHeight / 2 + selfOffset
+                    })    
 
-                    coordsArrow.y = y + parentHeight / 2 - horizontalArrowHeight / 2
-                    coordsArrow.x = x - elementDistance - horizontalArrowWidth
+                    setCoordsArrow({
+                        x: x - elementDistance - horizontalArrowWidth,
+                        y: y + parentHeight / 2 - horizontalArrowHeight / 2,
+                    })
                     break
                 case 'right-down':
-                    coordsBlock.x = x + parentWidth + elementDistance + horizontalArrowWidth
-                    coordsBlock.y =
-                        y +
-                        parentHeight -
-                        selfHeight -
-                        parentHeight / 2 +
-                        horizontalArrowHeight / 2 +
-                        selfOffset
 
-                    coordsArrow.y = y + parentHeight / 2 - horizontalArrowHeight / 2
-                    coordsArrow.x = x + parentWidth + elementDistance
+                    setCoordsBlock({
+                        x: x + parentWidth + elementDistance + horizontalArrowWidth,
+                        y: y + parentHeight - selfHeight - parentHeight / 2 + horizontalArrowHeight / 2 + selfOffset
+                    })
+
+                    setCoordsArrow({
+                        x: x + parentWidth + elementDistance,
+                        y: y + parentHeight / 2 - horizontalArrowHeight / 2,
+                    })
+
                     break
 
                 default:
-                    coordsBlock.x = x + parentWidth / 2 - selfWidth / 2
-                    coordsBlock.y = y - selfHeight - elementDistance - verticalArrowHeight
+                    setCoordsBlock({
+                        x: x + parentWidth / 2 - selfWidth / 2,
+                        y: y - selfHeight - elementDistance - verticalArrowHeight
+                    })
 
-                    coordsArrow.x = x + parentWidth / 2 - verticalArrowWidth / 2
-                    coordsArrow.y = y - elementDistance - verticalArrowHeight
+                    setCoordsArrow({
+                        x: x + parentWidth / 2 - verticalArrowWidth / 2,
+                        y: y - elementDistance - verticalArrowHeight,
+                    })
                     break
             }
             // checkWindowFreeSpace(position)
@@ -414,10 +450,8 @@ const DSPopover = ({
                 }, 0)
             }
 
-            coordsBlock.x += additionalOffsetBlock.x
-            coordsBlock.y += additionalOffsetBlock.y
-            coordsArrow.x += additionalOffsetArrow.x
-            coordsArrow.y += additionalOffsetArrow.y
+            setCoordsBlock({x: coordsBlock.x + additionalOffsetBlock.x, y: coordsBlock.y + additionalOffsetBlock.y});
+            setCoordsArrow({x: coordsArrow.x + additionalOffsetArrow.x, y: coordsArrow.y + additionalOffsetArrow.y});
         }
     }
     const checkWindowFreeSpace = (position: any) => {
