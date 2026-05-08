@@ -1,7 +1,9 @@
 'use client'
-
-import './DSPopover.module.css'
+// TODO вынести все классы с дангными в переменную или функцию и передать в className 
+import cl from './DSPopover.module.css'
 import React, { useState, useRef, useEffect, useMemo } from 'react'
+
+// const sizeClass = cl[`size-${size}`];
 
 const DSPopover = ({
     additionalClass = 'popover',
@@ -595,23 +597,49 @@ const DSPopover = ({
         'left-up',
     ].includes(finalPosition)
 
+    const getPopoverClassName = () => {
+        // TODO возможно вынести size === 'l'  вот это всё в переменную
+        return [
+            cl['default-popover'],
+            cl[`${theme}-theme`],
+            isSmallWidth && cl['mobile'],
+            size === 'l' && cl['size-l'],
+            size === 'm' && cl['size-m'],
+            size === 's' && cl['size-s'],
+            size === 'bxs' && cl['size-bxs'],
+            size === 'xs' && cl['size-xs'],
+            isSmallWidth && !withoutMobileView && cl['small-width'],
+            shadow && cl['shadow'],
+            sort && cl['sort'],
+        ]
+        .filter(Boolean)
+        .join(' ');
+    };
+
+    const getPopoverArrowClassName = () => {
+        return [
+            cl['default-popover__arrow'],
+            cl[`${theme}-theme`],
+            isBigArrow && cl['big'],
+            shadow && cl['shadow'],
+            isVertical && cl['default-popover__arrow_vertical'],
+            isHorizontal && cl['default-popover__arrow_horisontal'],
+        ]
+        .filter(Boolean)
+        .join(' ');
+    };
+
+    // TODO тут почему то ошибка
+    //cl['default-popover-wrapper'],
+    // cl['hidden'],
     return (
         <div className={[
-            'default-popover-wrapper',
+            cl['default-popover-wrapper'],
             'hidden',
-            additionalClass,
+            cl[additionalClass],
         ].filter(Boolean).join(' ')}>
             <div
-                className={[
-                    'default-popover__arrow',
-                    `${theme}-theme`,
-                    isBigArrow && 'big',
-                    shadow && 'shadow',
-                    isVertical && 'default-popover__arrow_vertical',
-                    isHorizontal && 'default-popover__arrow_horisontal',
-                ]
-                    .filter(Boolean)
-                    .join(' ')}
+                className={getPopoverArrowClassName()}
                 style={{
                     left: `${coordsArrow.x + additionalOffsetArrow.x}px`,
                     top: `${coordsArrow.y + additionalOffsetArrow.y}px`,
@@ -622,19 +650,7 @@ const DSPopover = ({
 
             <div
                 ref={popoverRef}
-                className={[
-                    'default-popover',
-                    `${theme}-theme`,
-                    isSmallWidth && 'mobile',
-                    size === 'l' && 'size-l',
-                    size === 'm' && 'size-m',
-                    size === 's' && 'size-s',
-                    size === 'bxs' && 'size-bxs',
-                    size === 'xs' && 'size-xs',
-                    isSmallWidth && !withoutMobileView && 'small-width',
-                    shadow && 'shadow',
-                    sort && 'sort',
-                ].filter(Boolean).join(' ')}
+                className={getPopoverClassName()}
                 style={{
                     left: `${coordsBlock.x + additionalOffsetBlock.x}px`,
                     top: `${coordsBlock.y + additionalOffsetBlock.y + additionalScroll}px`,
