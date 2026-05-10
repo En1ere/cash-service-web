@@ -3,7 +3,7 @@ import cl from "./styles/AuthForm.module.css"
 import DSButton from "@/components/UI/Button/DSButton";
 import {post} from "@/lib/api";
 import DSInput from "@/components/UI/Input/DSInput";
-import {formEnums} from "@/types/const/FormEnums";
+import {FormConstants} from "@/types/const/FormConstants";
 import DSLoader from "@/components/UI/LargeLoader/DSLargeLoader";
 import {PartialExcept} from "@/types/PartialExcept";
 
@@ -47,50 +47,50 @@ const AuthForm = ({signingIn}: {signingIn: boolean}) => {
                 {signingIn ?
                     <div className={cl.authFormInputs}>
                         <DSInput
-                            label={formEnums.labels.auth}
+                            label={FormConstants.labels.auth}
                             value={signingIn ? signInCredentials.identifier : signUpCredentials.email}
                             onChange={e => setSignInCredentials({...signInCredentials, identifier: e.target.value})}
-                            placeholder={formEnums.placeholders.email}
+                            placeholder={FormConstants.placeholders.email}
                             clearCb={() => setSignInCredentials({...signInCredentials, identifier: ""})}
                         />
                         <DSInput
                             type={'password'}
-                            label={formEnums.labels.password}
+                            label={FormConstants.labels.password}
                             value={signInCredentials.password}
                             onChange={e => setSignInCredentials({...signInCredentials, password: e.target.value})}
-                            placeholder={formEnums.placeholders.password}
+                            placeholder={FormConstants.placeholders.password}
                             clearCb={() => setSignInCredentials({...signInCredentials, password: ""})}
                         />
                     </div>
                     :
                     <div className={cl.authFormInputs}>
                         <DSInput
-                            label={formEnums.labels.login}
+                            label={FormConstants.labels.login}
                             value={signUpCredentials.login}
                             onChange={e => setSignUpCredentials({...signUpCredentials, login: e.target.value})}
-                            placeholder={formEnums.placeholders.login}
+                            placeholder={FormConstants.placeholders.login}
                             clearCb={() => setSignUpCredentials({...signUpCredentials, login: ""})}
                         />
                         <DSInput
-                            label={formEnums.labels.name}
+                            label={FormConstants.labels.name}
                             value={signUpCredentials.name}
                             onChange={e => setSignUpCredentials({...signUpCredentials, name: e.target.value})}
-                            placeholder={formEnums.placeholders.name}
+                            placeholder={FormConstants.placeholders.name}
                             clearCb={() => setSignUpCredentials({...signUpCredentials, name: ""})}
                         />
                         <DSInput
-                            label={formEnums.labels.email}
+                            label={FormConstants.labels.email}
                             value={signUpCredentials.email}
                             onChange={e => setSignUpCredentials({...signUpCredentials, email: e.target.value})}
-                            placeholder={formEnums.placeholders.email}
+                            placeholder={FormConstants.placeholders.email}
                             clearCb={() => setSignUpCredentials({...signUpCredentials, email: ""})}
                         />
                         <DSInput
                             type={'password'}
-                            label={formEnums.labels.password}
+                            label={FormConstants.labels.password}
                             value={signingIn ? signInCredentials.password : signUpCredentials.password}
                             onChange={e => setSignUpCredentials({...signUpCredentials, password: e.target.value})}
-                            placeholder={formEnums.placeholders.password}
+                            placeholder={FormConstants.placeholders.password}
                             clearCb={() => setSignUpCredentials({...signUpCredentials, password: ""})}
                         />
                     </div>

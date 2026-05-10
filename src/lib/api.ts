@@ -1,7 +1,6 @@
 import axios, {
     AxiosInstance,
     AxiosRequestConfig,
-    AxiosResponse,
     InternalAxiosRequestConfig,
     AxiosError,
 } from "axios";
@@ -12,6 +11,7 @@ import {
     setAuthTokens,
     clearTokens
 } from "@/lib/tokens";
+import {ApiResponse, ApiSuccess, ApiError} from "@/types/dto/general-api.dto";
 
 const USER_ID_HEADER = "X-User-Id";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
@@ -81,7 +81,32 @@ apiClient.interceptors.response.use(
 const request = async <T = unknown>(
     endpoint: string,
     options: AxiosRequestConfig = {}
-): Promise<AxiosResponse<T>> => apiClient.request<T>({ url: endpoint, ...options });
+): Promise<ApiResponse<T>> => {
+    try {
+        const response = await apiClient.request<ApiResponse<T>>({ url: endpoint, ...options });
+
+        if ((response.data as ApiSuccess<T>).success) {
+            return response.data;
+        } else {
+            const apiError = response.data as ApiError;
+            console.error("API Error:", apiError);
+            throw new Error(apiError.message || "Unknown API error");
+        }
+    // todo
+    // eslint-disable-next-line
+    } catch (error: any) {
+        console.error("Axios request failed:", error);
+
+        return Promise.reject({
+            success: false,
+            code: 'NETWORK_ERROR',
+            message: error?.response?.data?.message || "Network Error",
+            data: null,
+            statusCode: error?.response?.status,
+            name: error?.name,
+        } as ApiError);
+    }
+};
 
 export const get = <T = unknown>(
     endpoint: string,

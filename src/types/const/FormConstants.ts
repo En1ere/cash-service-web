@@ -1,4 +1,4 @@
-export const formEnums = {
+export const FormConstants = {
     labels: {
         email: "Email",
         login: "Логин",
