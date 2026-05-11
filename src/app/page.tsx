@@ -1,9 +1,9 @@
 import cl from "./page.module.css"
 import DSButton from "@/components/UI/Button/DSButton";
 import SomeClientComponent from "@/components/SomeClientComponent";
-import DSPopover from "@/components/UI/Popover/DSPopover";
 
 export default function Home() {
+
     return (
         <div className={cl.page}>
             <h1 className={cl.title}>Home page</h1>
@@ -11,9 +11,8 @@ export default function Home() {
             <DSButton variant={"secondary"}>Button</DSButton>
             <DSButton variant={"outline"}>Button</DSButton>
             <DSButton variant={"ghost"}>Button</DSButton>
-            <DSPopover parentElement="#testst" position="down-center" size="m" theme="default" zIndex={1}>
-                <p>Контент поповера</p>
-            </DSPopover>
+
+
             <DSButton variant={"destructive"}>Button</DSButton>
             <SomeClientComponent />
         </div>

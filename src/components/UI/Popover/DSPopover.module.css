@@ -1,4 +1,4 @@
-.default-popover {
+.ds-popover {
     position: absolute;
     box-shadow: unset;
     border-radius: 25px;
@@ -7,43 +7,37 @@
     z-index: 1000;
     padding: 8px 12px;
 }
-.default-popover.size-l {
+.ds-popover.size-l {
     width: 340px;
 }
-.default-popover.size-m {
+.ds-popover.size-m {
     width: 260px;
     font-size: 14px;
 }
-.default-popover.size-s {
+.ds-popover.size-s {
     width: 200px;
 }
-.default-popover.size-bxs {
+.ds-popover.size-bxs {
     width: 150px;
 }
-.default-popover.size-xs {
+.ds-popover.size-xs {
     width: 140px;
 }
-.default-popover.small-width {
+.ds-popover.small-width {
     width: 40%;
     position: absolute !important;
     right: 16px !important;
     left: auto !important;
 }
-.default-popover.green-theme {
-    color: #003129;
-}
-.default-popover.water-theme {
-    background: #00477e;
-    color: #fff;
-}
-.default-popover.shadow {
+
+.ds-popover.shadow {
     box-shadow: 0px 0px 8px rgba(0, 94, 147, 0.2);
 }
-.default-popover.sort {
+.ds-popover.sort {
     box-shadow: 0px 2px 6px rgba(12, 31, 26, 0.3);
 }
 
-.default-popover__arrow {
+.ds-popover__arrow {
     position: absolute;
     z-index: 1001;
     background: transparent;
@@ -52,26 +46,26 @@
     align-items: center;
 }
 
-.default-popover__arrow_vertical {
+.ds-popover__arrow_vertical {
         width: 16px;
         height: 8px;
 }
 
-.default-popover__arrow_vertical.big {
+.ds-popover__arrow_vertical.big {
     width: 24px;
     height: 12px;
 }
 
-.default-popover__arrow_horisontal {
+.ds-popover__arrow_horisontal {
     width: 8px;
     height: 16px;
 }
 
-.default-popover__arrow_horisontal.big {
+.ds-popover__arrow_horisontal.big {
     width: 12px;
     height: 24px;
 }
 
 .hidden {
-    opacity: 0;
+    opacity: 1;
 }

@@ -1,7 +1,43 @@
 'use client'
 import cl from './DSPopover.module.css'
 import React, { useState, useRef, useEffect, useMemo } from 'react'
-// TODO добавить типизацию
+
+type Position =
+  | 'up-center'
+  | 'down-center'
+  | 'left-center'
+  | 'right-center'
+  | 'up-left'
+  | 'down-left'
+  | 'up-right'
+  | 'down-right'
+  | 'right-up'
+  | 'left-up'
+  | 'right-down'
+  | 'left-down';
+
+type DSPopoverProps = {
+  additionalClass?: string;
+  theme?: string;
+  shadow?: boolean;
+  size?: 'l' | 'm' | 's' | 'bxs' | 'xs';
+  withoutMobileView?: boolean;
+  sort?: boolean;
+  zIndex?: number;
+  children: React.ReactNode;
+  parentElement?: string | null;
+  position?: Position;
+  onOutsideClick?: (value: boolean) => void;
+  additionalOffsetBlock?: {
+    x: number;
+    y: number;
+  };
+  additionalOffsetArrow?: {
+    x: number;
+    y: number;
+  };
+  additionalScroll?: number;
+};
 
 const DSPopover = ({
     additionalClass = 'popover',
@@ -12,12 +48,13 @@ const DSPopover = ({
     sort = false,
     zIndex,
     children,
+    onOutsideClick,
     parentElement,
     position = 'down-center',
     additionalOffsetBlock = { x: 0, y: 0 },
     additionalOffsetArrow = { x: 0, y: 0 },
     additionalScroll = 0,
-}) => {
+}: DSPopoverProps) => {
     const [scrollPosition, setScrollPosition] = useState(0)
 
     const [coordsBlock, setCoordsBlock] = useState({ x: 0, y: 0 })
@@ -115,11 +152,15 @@ const DSPopover = ({
   const getArrowUrl = useMemo(() => {
       if (!getArrowDirection) return false
 
-      return `/images/default-info-popover/popover-arrow-${getArrowDirection}${
-          isBigArrow ? '-big' : ''
-      }${theme && theme !== 'default' ? theme : ''}${
+      const fileName = `popover-arrow-${getArrowDirection}${isBigArrow ? '-big' : ''}${theme}${
           sort ? '-sort' : ''
       }.svg`
+
+      try {
+          return new URL(`../../icon/default-info-popover/${fileName}`, import.meta.url).href
+      } catch {
+          return false
+      }
   }, [getArrowDirection, isBigArrow, theme, sort])
 
     const handleScroll = () => {
@@ -218,7 +259,6 @@ const DSPopover = ({
         }
     }
     const setCoords = (position: any) => {
-        // TODO поменять на Set
         if (idx === null) {
             setIdx(possiblePositions.indexOf(position))
         }
@@ -419,6 +459,7 @@ const DSPopover = ({
             }
         }
 
+        // TODO пока задуматься что это setFinalPosition и нужно ли оно
         setFinalPosition(position)
         setCoordsBlock(nextCoordsBlock)
         setCoordsArrow(nextCoordsArrow)
@@ -575,10 +616,33 @@ const DSPopover = ({
             // TODO сомнительная шткуа понаблюдать
             // this.$forceUpdate();
             document
-                .querySelector(`.default-popover-wrapper.${additionalClass}`)
-                ?.classList.remove('hidden')
+                .querySelector(`.${cl['ds-popover-wrapper']}.${cl[additionalClass]}`)
+                // TODO hidden нужно менять при открытии
+                ?.classList.remove(cl['hidden'])
         }, 50)
     }
+
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            const popoverNode = popoverRef.current as HTMLElement | null
+
+            if (!popoverNode) return
+
+            const target = event.target as Node
+
+            const isClickInside = popoverNode.contains(target)
+
+            if (!isClickInside) {
+                onOutsideClick?.(false)
+            }
+        }
+
+        document.addEventListener('mousedown', handleOutsideClick)
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick)
+        }
+    }, [onOutsideClick])
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
@@ -622,7 +686,7 @@ const DSPopover = ({
     const getPopoverClassName = () => {
         // TODO возможно вынести size === 'l'  вот это всё в переменную
         return [
-            cl['default-popover'],
+            cl['ds-popover'],
             cl[`${theme}-theme`],
             isSmallWidth && cl['mobile'],
             size === 'l' && cl['size-l'],
@@ -640,24 +704,21 @@ const DSPopover = ({
 
     const getPopoverArrowClassName = () => {
         return [
-            cl['default-popover__arrow'],
+            cl['ds-popover__arrow'],
             cl[`${theme}-theme`],
             isBigArrow && cl['big'],
             shadow && cl['shadow'],
-            isVertical && cl['default-popover__arrow_vertical'],
-            isHorizontal && cl['default-popover__arrow_horisontal'],
+            isVertical && cl['ds-popover__arrow_vertical'],
+            isHorizontal && cl['ds-popover__arrow_horisontal'],
         ]
         .filter(Boolean)
         .join(' ');
     };
 
-    // TODO тут почему то ошибка
-    //cl['default-popover-wrapper'],
-    // cl['hidden'],
     return (
         <div className={[
-            cl['default-popover-wrapper'],
-            'hidden',
+            cl['ds-popover-wrapper'],
+            cl['hidden'],
             cl[additionalClass],
         ].filter(Boolean).join(' ')}>
             <div
