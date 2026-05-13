@@ -12,6 +12,7 @@ interface DSInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'clas
     className?: string;
     clearCb?: () => void;
     hideButton?: boolean;
+    isLoading?: boolean;
 }
 
 const DSInput = forwardRef<HTMLInputElement, DSInputProps>(
@@ -22,6 +23,7 @@ const DSInput = forwardRef<HTMLInputElement, DSInputProps>(
         className = '',
         clearCb,
         hideButton = false,
+        isLoading = false,
         ...props
     }, ref) => {
         const variantClass = cl[variant];
@@ -43,6 +45,7 @@ const DSInput = forwardRef<HTMLInputElement, DSInputProps>(
                             ${variantClass} 
                             ${className}
                             ${hideButton && cl.inputWithoutBtn}
+                            ${isLoading && cl.loading}
                         `}
                         type="text"
                         disabled={disabled}

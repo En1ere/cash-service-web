@@ -1,0 +1,1 @@
+export type StyleVariants = 'primary' | 'secondary' | 'outline' | 'ghost' | 'empty' | 'destructive';

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import cl from "./styles/AuthModalContent.module.css"
+import cl from "../auth/styles/AuthModalContent.module.css"
 import AuthForm from "@/components/features/auth/AuthForm";
 import DSButton from "@/components/UI/Button/DSButton";
 
-const AuthModalContent = () => {
+const AuthModal = () => {
     const [signIn, setSignIn] = useState(true)
     return (
         <div className={cl.auth}>
@@ -26,4 +26,4 @@ const AuthModalContent = () => {
     );
 };
 
-export default AuthModalContent;
+export default AuthModal;

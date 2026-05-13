@@ -1,14 +1,15 @@
 import React from 'react';
 import cl from "./DSLoader.module.css"
+import {StyleVariants} from "@/types/StyleVariants";
 
-const DSLoader = () => {
+const DSLoader = ({variant = 'primary'}: Readonly<{variant?: StyleVariants}>) => {
     return (
-        <div className={cl.container}>
-            <div className={cl.inner}>
-                <div className={cl.line} />
-                <div className={cl.line} />
-                <div className={cl.line} />
-                <div className={cl.line} />
+        <div className={`${cl.container} ${cl[variant]}`}>
+            <div className={`${cl.inner} ${cl[variant]}`}>
+                <div className={`${cl.line} ${cl[variant]}`} />
+                <div className={`${cl.line} ${cl[variant]}`} />
+                <div className={`${cl.line} ${cl[variant]}`} />
+                <div className={`${cl.line} ${cl[variant]}`} />
             </div>
         </div>
     )

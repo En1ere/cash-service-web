@@ -26,6 +26,10 @@
     border-radius: 4px;
 }
 
+.line.primary {
+    background-color: var(--white-primary-color);
+}
+
 .line:nth-child(1) {
     animation: grow 1.5s ease-in-out infinite;
 }
