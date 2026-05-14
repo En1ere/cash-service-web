@@ -4,7 +4,7 @@ import "../styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import React from "react";
-import ProvidersWrapper from "@/app/providers-wrapper";
+import GlobalProviders from "@/app/providers/GlobalProviders";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -32,11 +32,11 @@ export default function RootLayout({
     return (
         <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
             <body>
-                <ProvidersWrapper>
+                <GlobalProviders>
                     <Header />
                     <main>{children}</main>
                     <Footer />
-                </ProvidersWrapper>
+                </GlobalProviders>
             </body>
         </html>
     );

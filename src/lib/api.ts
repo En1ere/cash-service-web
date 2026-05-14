@@ -12,6 +12,7 @@ import {
     clearTokens
 } from "@/lib/tokens";
 import {ApiResponse, ApiSuccess, ApiError} from "@/types/dto/general-api.dto";
+import {useAuthStore} from "@/app/providers/AuthProvider";
 
 const USER_ID_HEADER = "X-User-Id";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
@@ -63,14 +64,16 @@ apiClient.interceptors.response.use(
                     { token: refreshToken },
                     { headers: { "Content-Type": "application/json" } }
                 );
+                clearTokens();
 
                 setAuthTokens(data.accessToken, data.refreshToken);
 
                 originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+                useAuthStore(s => s.setIsAuthorized)(true)
                 return apiClient(originalRequest);
             } catch {
                 clearTokens();
-                window.location.href = '/login';
+            //     todo modal need auth
             }
         }
 

@@ -1,5 +1,5 @@
 'use client'
-import { useModalsStoreFromContext } from '@/providers/DSModalProvider'
+import { useModalsStoreFromContext } from '@/app/providers/DSModalProvider'
 
 export function useModals(modalName: string = "") {
     const openedModals = useModalsStoreFromContext(s => s.openedModals)
