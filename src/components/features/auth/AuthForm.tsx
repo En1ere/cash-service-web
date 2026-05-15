@@ -52,7 +52,7 @@ const AuthForm = ({signingIn}: {signingIn: boolean}) => {
                             onChange={e => setSignInCredentials({...signInCredentials, identifier: e.target.value})}
                             placeholder={FormConstants.placeholders.email}
                             clearCb={() => setSignInCredentials({...signInCredentials, identifier: ""})}
-                            isLoading={isAuthLoading}
+                            disabled={isAuthLoading}
                         />
                         <DSInput
                             type={'password'}
@@ -61,7 +61,7 @@ const AuthForm = ({signingIn}: {signingIn: boolean}) => {
                             onChange={e => setSignInCredentials({...signInCredentials, password: e.target.value})}
                             placeholder={FormConstants.placeholders.password}
                             clearCb={() => setSignInCredentials({...signInCredentials, password: ""})}
-                            isLoading={isAuthLoading}
+                            disabled={isAuthLoading}
                         />
                     </div>
                     :
@@ -72,7 +72,7 @@ const AuthForm = ({signingIn}: {signingIn: boolean}) => {
                             onChange={e => setSignUpCredentials({...signUpCredentials, login: e.target.value})}
                             placeholder={FormConstants.placeholders.login}
                             clearCb={() => setSignUpCredentials({...signUpCredentials, login: ""})}
-                            isLoading={isAuthLoading}
+                            disabled={isAuthLoading}
                         />
                         <DSInput
                             label={FormConstants.labels.name}
@@ -80,7 +80,7 @@ const AuthForm = ({signingIn}: {signingIn: boolean}) => {
                             onChange={e => setSignUpCredentials({...signUpCredentials, name: e.target.value})}
                             placeholder={FormConstants.placeholders.name}
                             clearCb={() => setSignUpCredentials({...signUpCredentials, name: ""})}
-                            isLoading={isAuthLoading}
+                            disabled={isAuthLoading}
                         />
                         <DSInput
                             label={FormConstants.labels.email}
@@ -88,7 +88,7 @@ const AuthForm = ({signingIn}: {signingIn: boolean}) => {
                             onChange={e => setSignUpCredentials({...signUpCredentials, email: e.target.value})}
                             placeholder={FormConstants.placeholders.email}
                             clearCb={() => setSignUpCredentials({...signUpCredentials, email: ""})}
-                            isLoading={isAuthLoading}
+                            disabled={isAuthLoading}
                         />
                         <DSInput
                             type={'password'}
@@ -97,7 +97,7 @@ const AuthForm = ({signingIn}: {signingIn: boolean}) => {
                             onChange={e => setSignUpCredentials({...signUpCredentials, password: e.target.value})}
                             placeholder={FormConstants.placeholders.password}
                             clearCb={() => setSignUpCredentials({...signUpCredentials, password: ""})}
-                            isLoading={isAuthLoading}
+                            disabled={isAuthLoading}
                         />
                     </div>
                 }

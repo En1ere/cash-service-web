@@ -8,7 +8,7 @@
 
 .input {
     background-color: var(--white-primary-color);
-    border: 0;
+    border: 1px solid var(--primary-color);
     border-radius: 14px;
     height: 48px;
     display: flex;
@@ -19,11 +19,21 @@
     padding: 16px 44px 16px 16px;
     font-size: 16px;
     color: var(--dark-primary-color);
+    transition: all 0.2s;
+}
+
+.input:focus {
     box-shadow: var(--primary-shadow);
+    border: 0;
 }
 
 .input::placeholder {
     color: var(--inactive-color);
+}
+
+.input:disabled {
+    color: var(--inactive-color);
+    background: var(--disabled-color);
 }
 
 .clearButton {
@@ -55,10 +65,10 @@
     padding: 16px;
 }
 
-.primary {
-
+.clearButton.inactive {
+    opacity: 0;
 }
 
-.loading {
+.primary {
 
 }

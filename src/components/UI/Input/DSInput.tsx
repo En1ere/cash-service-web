@@ -10,9 +10,8 @@ interface DSInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'clas
     label?: string;
     disabled?: boolean;
     className?: string;
-    clearCb?: () => void;
+    clearCb: () => void;
     hideButton?: boolean;
-    isLoading?: boolean;
 }
 
 const DSInput = forwardRef<HTMLInputElement, DSInputProps>(
@@ -23,11 +22,15 @@ const DSInput = forwardRef<HTMLInputElement, DSInputProps>(
         className = '',
         clearCb,
         hideButton = false,
-        isLoading = false,
         ...props
     }, ref) => {
         const variantClass = cl[variant];
         const [hoverCross, setHoverCross] = useState(false);
+
+        const clickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            e.stopPropagation();
+            clearCb();
+        }
 
         return (
             <div className={cl.inputBlock}>
@@ -45,19 +48,20 @@ const DSInput = forwardRef<HTMLInputElement, DSInputProps>(
                             ${variantClass} 
                             ${className}
                             ${hideButton && cl.inputWithoutBtn}
-                            ${isLoading && cl.loading}
                         `}
                         type="text"
                         disabled={disabled}
                         {...props}
                     />
                     <DSButton
+                        type="button"
                         className={`
                             ${cl.clearButton} 
                             ${(props.value?.toString().length || 0) > 0 && cl.show}
+                            ${disabled && cl.inactive}
                         `}
                         variant={"empty"}
-                        onClick={clearCb}
+                        onClick={clickHandler}
                         onMouseOver={() => setHoverCross(true)}
                         onMouseLeave={() => setHoverCross(false)}
                     >

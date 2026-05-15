@@ -13,6 +13,7 @@ import {
 } from "@/lib/tokens";
 import {ApiResponse, ApiSuccess, ApiError} from "@/types/dto/general-api.dto";
 import {useAuthStore} from "@/app/providers/AuthProvider";
+import {useUsersStore} from "@/app/providers/UsersProvider";
 
 const USER_ID_HEADER = "X-User-Id";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
@@ -72,8 +73,12 @@ apiClient.interceptors.response.use(
                 useAuthStore(s => s.setIsAuthorized)(true)
                 return apiClient(originalRequest);
             } catch {
+                console.log(">>>> catch")
                 clearTokens();
+                useAuthStore(s => s.setIsAuthorized)(false)
+                useUsersStore(s => s.clear)()
             //     todo modal need auth
+            //     check if logout
             }
         }
 

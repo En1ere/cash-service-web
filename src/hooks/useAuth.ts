@@ -15,11 +15,9 @@ export function useAuth() {
     const clearUsers = useUsersStore(s => s.clear)
 
     const signOutHandler = async() => {
-        const res = await signOut();
-        if(res.success) {
-            clearTokens()
-            clearUsers()
-        }
+        await signOut();
+        clearTokens()
+        clearUsers()
     }
 
     return {
