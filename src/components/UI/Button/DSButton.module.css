@@ -84,12 +84,6 @@
     }
 }
 
-.empty {
-    border: 0;
-    background: transparent;
-    color: transparent;
-    padding: 4px;
-}
 
 .size-sm {
     height: 24px;
@@ -101,4 +95,13 @@
 
 .size-lg {
     height: 48px;
+}
+
+.empty {
+    border: 0;
+    background: transparent;
+    color: transparent;
+    padding: 0;
+    margin: 0;
+    height: min-content;
 }

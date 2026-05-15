@@ -19,7 +19,8 @@ body {
     min-height: 100vh;
     text-rendering: optimizeSpeed;
     line-height: inherit;
-    background: var(--primary-bg-color);
+    background: var(--secondary-bg-color);
+    color: var(--dark-primary-color);
     display: flex;
     flex-direction: column;
 }
@@ -60,6 +61,10 @@ table {
     border-spacing: 0;
 }
 
+template {
+    display: unset;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -90,9 +95,6 @@ table {
   html {
     color-scheme: dark;
   }
-}
-* {
-    color: var(--secondary-color);
 }
 
 main {
