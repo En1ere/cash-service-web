@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@visx/shape": "^4.0.0-alpha.11",
     "axios": "^1.16.0",
     "next": "16.2.5",
     "react": "19.2.4",
