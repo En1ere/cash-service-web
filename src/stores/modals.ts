@@ -1,35 +1,53 @@
 import { create } from 'zustand'
+import type { ModalName } from '@/components/features/modals/modals.registry'
 
 export interface ModalsState {
-    openedModals: string[]
-    openModal: (modalName: string) => void
-    closeModal: (modalName: string) => void
+    openedModals: ModalName[]
+    isOpen: (modalName: ModalName) => boolean
+    getTopModal: () => ModalName | null
+    openModal: (modalName: ModalName) => void
+    closeModal: (modalName: ModalName) => void
+    closeTopModal: () => void
     closeAllModals: () => void
 }
 
-export const createModalsStore = () =>
-    create<ModalsState>((set, get) => ({
-        openedModals: [],
+export const useModalsStore = create<ModalsState>()((set, get) => ({
+    openedModals: [],
 
-        openModal: (modalName: string) => {
-            if(!modalName) {
-                console.error("No modal provided")
-            }
-            else {
-                set(state => ({openedModals: state.openedModals.includes(modalName) ? state.openedModals : [...state.openedModals, modalName]}))
-            }
-        },
-        closeModal: (modalName: string) => {
-            if(!modalName) {
-                get().closeAllModals();
-            }
-            else {
-                set(state => ({openedModals: state.openedModals.filter(m => m !== modalName)}))
-            }
-        },
-        closeAllModals: () => {
-            set({openedModals: []})
-        },
-    }))
+    isOpen: (modalName) => {
+        return get().openedModals.includes(modalName)
+    },
 
-export type ModalsStoreApi = ReturnType<typeof createModalsStore>
+    getTopModal: () => {
+        const { openedModals } = get()
+        return openedModals.length > 0 ? openedModals[openedModals.length - 1] : null
+    },
+
+    openModal: (modalName) => {
+        set((state) => ({
+            openedModals: state.openedModals.includes(modalName)
+                ? state.openedModals
+                : [...state.openedModals, modalName],
+        }))
+    },
+
+    closeModal: (modalName) => {
+        set((state) => ({
+            openedModals: state.openedModals.filter((name) => name !== modalName),
+        }))
+    },
+
+    closeTopModal: () => {
+        const topModal = get().getTopModal()
+
+        if (!topModal) {
+            return
+        }
+
+        get().closeModal(topModal)
+    },
+
+    closeAllModals: () => {
+        set({ openedModals: [] })
+    },
+}))

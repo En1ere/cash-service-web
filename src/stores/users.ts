@@ -1,57 +1,64 @@
-import { UserDto } from "@/types/dto/user.dto";
-import { ApiResponse } from "@/types/dto/general-api.dto";
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
-import * as api from "@/lib/api";
+import { create } from 'zustand'
+import { persist, createJSONStorage } from 'zustand/middleware'
+
+import { usersApi } from '@/lib/users-api'
+import type { UserDto } from '@/types/dto/user.dto'
+import {toApiError} from "@/lib/api-errors";
 
 export interface UsersState {
     isLoading: boolean
     user: UserDto | null
     getMe: () => Promise<UserDto | null>
     setIsLoading: (loading: boolean) => void
+    setUser: (user: UserDto | null) => void
     clear: () => void
 }
 
-export const createUsersStore = () =>
-    create<UsersState>()(
-        persist(
-            (set, get) => ({
-                isLoading: true,
-                user: null,
+export const useUsersStore = create<UsersState>()(
+    persist(
+        (set) => ({
+            isLoading: true,
+            user: null,
 
-                getMe: async () => {
-                    try {
-                        set({ isLoading: true })
-                        const res: ApiResponse<UserDto> = await api.get('/users/me')
+            getMe: async () => {
+                try {
+                    set({ isLoading: true })
 
-                        if (res.success) {
-                            set({ user: res.data })
-                        }
+                    const res = await usersApi.getMe()
 
-                        return get().user;
+                    if (res.success) {
+                        set({ user: res.data })
+                        return res.data
                     }
-                    catch (err) {
-                        console.error(err)
-                        return null
-                    }
-                    finally {
-                        set({ isLoading: false })
-                    }
-                },
-                setIsLoading: (loading: boolean) => {
-                    set({ isLoading: loading })
-                },
-                clear: () => {
-                    set({ user: null })
+
+                    return null
+                } catch (error: unknown) {
+                    console.error(toApiError(error))
+                    return null
+                } finally {
                     set({ isLoading: false })
                 }
-            }),
-            {
-                name: 'users-storage',
-                storage: createJSONStorage(() => localStorage),
-                partialize: (state) => ({ user: state.user })
-            }
-        )
-    )
+            },
 
-export type UsersStoreApi = ReturnType<typeof createUsersStore>
+            setIsLoading: (loading) => {
+                set({ isLoading: loading })
+            },
+
+            setUser: (user) => {
+                set({ user })
+            },
+
+            clear: () => {
+                set({
+                    user: null,
+                    isLoading: false,
+                })
+            },
+        }),
+        {
+            name: 'users-storage',
+            storage: createJSONStorage(() => localStorage),
+            partialize: (state) => ({ user: state.user }),
+        }
+    )
+)

@@ -1,9 +1,11 @@
 import { create } from 'zustand'
-import { SignInPayload, SignInResponse } from '@/types/dto/signIn.dto'
-import { SignUpPayload, SignUpResponse } from '@/types/dto/signUp.dto'
-import { ApiResponse } from '@/types/dto/general-api.dto'
-import { post } from '@/lib/api'
-import {createJSONStorage, persist} from "zustand/middleware";
+import { createJSONStorage, persist } from 'zustand/middleware'
+
+import { authApi } from '@/lib/auth-api'
+import type { ApiResponse } from '@/types/dto/general-api.dto'
+import type { SignInPayload, SignInResponse } from '@/types/dto/signIn.dto'
+import type { SignUpPayload, SignUpResponse } from '@/types/dto/signUp.dto'
+import {toApiError} from "@/lib/api-errors";
 
 export interface AuthState {
     isAuthorized: boolean
@@ -16,69 +18,82 @@ export interface AuthState {
     checkAuth: () => boolean
 }
 
-export const createAuthStore = () =>
-    create<AuthState>()(
-        persist(
-            (set) => ({
-                isAuthorized: false,
-                isLoading: true,
+export const useAuthStore = create<AuthState>()(
+    persist(
+        (set) => ({
+            isAuthorized: false,
+            isLoading: true,
 
-                signIn: async (credentials: SignInPayload): Promise<ApiResponse<SignInResponse>> => {
-                    try {
-                        set({isLoading: true})
-                        const res: ApiResponse<SignInResponse> = await post('/auth/sign-in', credentials)
-                        if (res.success) {
-                            set({isAuthorized: true})
-                        }
-                        return res
-                    } catch (err: unknown) {
-                        return err as ApiResponse<SignInResponse>
-                    } finally {
-                        set({isLoading: false})
+            signIn: async (credentials) => {
+                try {
+                    set({ isLoading: true })
+
+                    const res = await authApi.signIn(credentials)
+
+                    if (res.success) {
+                        set({ isAuthorized: true })
                     }
-                },
-                signOut: async (): Promise<ApiResponse<unknown>> => {
-                    try {
-                        set({isLoading: true})
-                        const res = await post('/auth/sign-out')
-                        if (res.success) {
-                            set({isAuthorized: false})
-                        }
-                        return res
-                    } catch (err) {
-                        return err as ApiResponse<unknown>
-                    } finally {
-                        set({isLoading: false})
+
+                    return res
+                } catch (error: unknown) {
+                    return toApiError(error)
+                } finally {
+                    set({ isLoading: false })
+                }
+            },
+
+            signOut: async () => {
+                try {
+                    set({ isLoading: true })
+
+                    const res = await authApi.signOut()
+
+                    if (res.success) {
+                        set({ isAuthorized: false })
                     }
-                },
-                signUp: async (credentials: SignUpPayload): Promise<ApiResponse<SignUpResponse>> => {
-                    try {
-                        set({isLoading: true})
-                        return await post('/auth/sign-up', credentials)
-                    } catch (err: unknown) {
-                        return err as ApiResponse<SignUpResponse>
-                    } finally {
-                        set({isLoading: false})
-                    }
-                },
-                setIsAuthorized: (authorized: boolean) => {
-                    set({ isAuthorized: authorized })
-                },
-                setIsLoading: (loading: boolean) => {
-                    set({ isLoading: loading })
-                },
-                checkAuth: () => {
-                    const token = localStorage.getItem('accessToken')
-                    set({ isAuthorized: !!token })
-                    return !!token
-                },
-            }),
-            {
-                name: 'auth-storage',
-                storage: createJSONStorage(() => localStorage),
-                partialize: (state) => ({ isAuthorized: state.isAuthorized })
-            }
-        )
+
+                    return res
+                } catch (error: unknown) {
+                    return toApiError(error)
+                } finally {
+                    set({ isLoading: false })
+                }
+            },
+
+            signUp: async (credentials) => {
+                try {
+                    set({ isLoading: true })
+                    return await authApi.signUp(credentials)
+                } catch (error: unknown) {
+                    return toApiError(error)
+                } finally {
+                    set({ isLoading: false })
+                }
+            },
+
+            setIsAuthorized: (authorized) => {
+                set({ isAuthorized: authorized })
+            },
+
+            setIsLoading: (loading) => {
+                set({ isLoading: loading })
+            },
+
+            checkAuth: () => {
+                if (typeof window === 'undefined') {
+                    return false
+                }
+
+                const token = localStorage.getItem('accessToken')
+                const isAuthorized = !!token
+                set({ isAuthorized })
+                return isAuthorized
+            },
+        }),
+        {
+            name: 'auth-storage',
+            storage: createJSONStorage(() => localStorage),
+            partialize: (state) => ({ isAuthorized: state.isAuthorized }),
+        }
     )
-
-export type AuthStoreApi = ReturnType<typeof createAuthStore>
+)

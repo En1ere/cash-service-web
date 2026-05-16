@@ -1,23 +1,24 @@
 'use client'
-import { useAuthStore } from '@/app/providers/AuthProvider'
-import {clearTokens} from "@/lib/tokens";
-import {useUsersStore} from "@/app/providers/UsersProvider";
+
+import { useAuthStore } from '@/stores/auth'
+import { clearTokens } from '@/lib/tokens'
+import {useUsersStore} from "@/stores/users";
 
 export function useAuth() {
-    const isAuthorized = useAuthStore(s => s.isAuthorized)
-    const isAuthLoading = useAuthStore(s => s.isLoading)
-    const signIn = useAuthStore(s => s.signIn)
-    const signOut = useAuthStore(s => s.signOut)
-    const signUp = useAuthStore(s => s.signUp)
-    const setIsAuthorized = useAuthStore(s => s.setIsAuthorized)
-    const setIsLoading= useAuthStore(s => s.setIsLoading)
-    const checkAuth = useAuthStore(s => s.checkAuth)
-    const clearUsers = useUsersStore(s => s.clear)
+    const isAuthorized = useAuthStore((s) => s.isAuthorized)
+    const isAuthLoading = useAuthStore((s) => s.isLoading)
+    const signIn = useAuthStore((s) => s.signIn)
+    const signOut = useAuthStore((s) => s.signOut)
+    const signUp = useAuthStore((s) => s.signUp)
+    const setIsAuthorized = useAuthStore((s) => s.setIsAuthorized)
+    const setAuthLoading = useAuthStore((s) => s.setIsLoading)
+    const checkAuth = useAuthStore((s) => s.checkAuth)
 
-    const signOutHandler = async() => {
-        await signOut();
+    const signOutHandler = async () => {
+        await signOut()
         clearTokens()
-        clearUsers()
+        useUsersStore.getState().clear()
+        useAuthStore.getState().setIsAuthorized(false)
     }
 
     return {
@@ -27,7 +28,7 @@ export function useAuth() {
         signOut: signOutHandler,
         signUp,
         setIsAuthorized,
-        setIsLoading,
+        setAuthLoading,
         checkAuth,
     }
 }

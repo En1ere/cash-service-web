@@ -1,27 +1,28 @@
 'use client'
-import { useModalsStoreFromContext } from '@/app/providers/DSModalProvider'
 
-export function useModals(modalName: string = "") {
-    const openedModals = useModalsStoreFromContext(s => s.openedModals)
-    const openModal = useModalsStoreFromContext(s => s.openModal)
-    const closeModal = useModalsStoreFromContext(s => s.closeModal)
-    const closeAllModals = useModalsStoreFromContext(s => s.closeAllModals)
+import type { ModalName } from '@/components/features/modals/modals.registry'
+import { useModalsStore } from '@/stores/modals'
 
-    const currentModal = useModalsStoreFromContext(
-        state => (state.openedModals[state.openedModals.length - 1] ?? null)
-    )
+export function useModals(modalName?: ModalName) {
+    const openedModals = useModalsStore((s) => s.openedModals)
+    const openModal = useModalsStore((s) => s.openModal)
+    const closeModal = useModalsStore((s) => s.closeModal)
+    const closeTopModal = useModalsStore((s) => s.closeTopModal)
+    const closeAllModals = useModalsStore((s) => s.closeAllModals)
+    const currentModal = useModalsStore((s) => s.getTopModal())
 
     const isOpen = modalName ? openedModals.includes(modalName) : false
-    const isTop = currentModal === modalName
+    const isTop = modalName ? currentModal === modalName : false
 
     return {
         isOpen,
         isTop,
         openModal,
         closeModal,
+        closeTopModal,
         closeAllModals,
         currentModal,
-        openedCount: openedModals.length,
         openedModals,
+        openedCount: openedModals.length,
     }
 }

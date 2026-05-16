@@ -1,7 +1,7 @@
 import cl from "./page.module.css"
 import DSButton from "@/components/UI/Button/DSButton";
 import SomeClientComponent from "@/components/SomeClientComponent";
-import {ModalsProvider} from "@/app/providers/DSModalProvider";
+import {ModalsProvider} from "@/app/providers/ModalSystem";
 
 export default function Home() {
     return (

@@ -1,9 +1,9 @@
 export interface ApiSuccess<T> {
-    success: boolean
+    success: true
     data: T
 }
 export interface ApiError {
-    success: boolean
+    success: false
     code: string
     message: string
     data: null
