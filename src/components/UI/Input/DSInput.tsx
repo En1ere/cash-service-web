@@ -1,7 +1,7 @@
 import React, {forwardRef, InputHTMLAttributes, useState} from 'react';
 import cl from "./DSInput.module.css"
-import IconCross from "../Icons/IconCross";
 import DSButton from "@/components/UI/Button/DSButton";
+import DSIcon from "@/components/UI/Icons/DSIcon";
 
 type InputVariant = "primary" | "titled" | "number" | "number-titled";
 
@@ -65,12 +65,7 @@ const DSInput = forwardRef<HTMLInputElement, DSInputProps>(
                         onMouseOver={() => setHoverCross(true)}
                         onMouseLeave={() => setHoverCross(false)}
                     >
-                        <IconCross
-                            width={20}
-                            height={20}
-                            color={hoverCross ? 'var(--secondary-color)' : 'var(--primary-color)'}
-                            className={cl.clearSvg}
-                        />
+                        <DSIcon name="IconCross" width={20} height={20} color={hoverCross ? 'var(--secondary-color)' : 'var(--primary-color)'} className={cl.clearSvg} />
                     </DSButton>
                 </div>
             </div>

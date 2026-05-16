@@ -6,8 +6,8 @@ import {useAuth} from "@/hooks/useAuth";
 import Image, {StaticImageData} from 'next/image';
 import avatarPlug from "@/assets/img/profile/profile-plug.png"
 import DSDropDown from "@/components/UI/DropDown/DSDropDown";
-import IconDropDown from "@/components/UI/Icons/IconDropDown";
 import {DropDownItem} from "@/types/DropDownItem";
+import DSIcon from "@/components/UI/Icons/DSIcon";
 
 const AuthBlock = () => {
     const { user, goToProfile } = useUsers()
@@ -44,9 +44,7 @@ const AuthBlock = () => {
                             {user?.login}
                         </span>
                     </div>
-                    <div>
-                        <IconDropDown />
-                    </div>
+                    <DSIcon name="IconDropDown" />
                 </div>
             </DSDropDown>
     )

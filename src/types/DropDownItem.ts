@@ -1,4 +1,4 @@
 export interface DropDownItem {
-    title: string,
+    title: string
     action: () => void
 }

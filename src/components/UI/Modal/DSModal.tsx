@@ -1,8 +1,8 @@
 'use client';
 import React, {ReactNode, useEffect, useState} from 'react';
 import cl from './DSModal.module.css'
-import IconCross from "@/components/UI/Icons/IconCross";
 import DSButton from "@/components/UI/Button/DSButton";
+import DSIcon from "@/components/UI/Icons/DSIcon";
 
 interface DSModalProps {
     active: boolean;
@@ -33,7 +33,7 @@ function DSModal({active, close, children}: DSModalProps) {
         <div className={isVisible ? `${cl.modalWrapper} ${cl.modalWrapperActive}` : cl.modalWrapper} onClick={closeModal}>
             <div className={isVisible ? `${cl.modal} ${cl.modalActive}` : cl.modal} onClick={e => e.stopPropagation()}>
                 <DSButton variant={'empty'} onClick={closeModal} className={cl.modalCloseIcon}>
-                    <IconCross />
+                    <DSIcon name="IconCross" />
                 </DSButton>
                 {children}
             </div>
