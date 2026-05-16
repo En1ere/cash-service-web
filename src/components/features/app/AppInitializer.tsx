@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import { useUsers } from '@/hooks/useUsers'
+import {getUserUUID} from "@/lib/uuid";
 
 export function AppInitializer() {
     const {
@@ -33,6 +34,7 @@ export function AppInitializer() {
 
                 if (!isAuthorized) {
                     clearUsersStore()
+                    getUserUUID()
                     return
                 }
 
