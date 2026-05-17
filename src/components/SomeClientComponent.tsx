@@ -1,9 +1,9 @@
 'use client'
-import React from 'react';
 import DSButton from "@/components/UI/Button/DSButton";
 import DSModal from "@/components/UI/Modal/DSModal";
 import {useModal} from "@/hooks/useModal";
 import {get} from "@/lib/api";
+import Graph from "@/components/features/graphics/Graph";
 
 function SomeClientComponent() {
     const modal = useModal();
@@ -28,7 +28,9 @@ function SomeClientComponent() {
             <DSModal active={modal.active} close={modal.close}>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore dolorem fugit non quos vitae. Eius eos error ex iste suscipit.
             </DSModal>
+            <Graph>
 
+            </Graph>
         </div>
     );
 }
