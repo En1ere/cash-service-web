@@ -9,13 +9,11 @@ export default function ProfileLayout({children}: Readonly<{children: React.Reac
             title: "Dashboard",
             link: "/profile/dashboard",
             icon: "IconHome",
-            action: () => {}
         },
         {
             title: "Settings",
             link: "/profile/settings",
             icon: "IconSettings",
-            action: () => {}
         }
     ]
 

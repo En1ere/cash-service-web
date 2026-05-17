@@ -13,7 +13,7 @@ export function useUsers() {
     const setUser = useUsersStore((s) => s.setUser)
     const setUserLoading = useUsersStore((s) => s.setIsLoading)
 
-    const goToProfile = () => router.push('/profile')
+    const goToProfile = () => router.push('/profile/dashboard')
 
     return {
         isUserLoading,

@@ -6,3 +6,31 @@
     box-shadow: var(--primary-shadow);
     height: 100%;
 }
+
+.sidebarItem {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 20px;
+    position: relative;
+    font-size: 24px;
+    font-family: RobotoBold;
+    text-decoration: none;
+    color: var(--grey-text);
+}
+
+.sidebarItem.active {
+    color: var(--primary-color);
+}
+
+.sidebarItem.active::before {
+    content: "";
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--primary-color);
+    border-radius: 0 20px 20px 0;
+    overflow: hidden;
+}

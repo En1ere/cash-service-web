@@ -4,5 +4,4 @@ export interface SideBarItem {
     title: string
     link: string
     icon: IconName
-    action: () => void
 }
