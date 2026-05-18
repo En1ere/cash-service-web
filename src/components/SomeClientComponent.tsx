@@ -7,8 +7,12 @@ import DSLoader from "@/components/UI/Loader/DSLoader";
 import DSLargeLoader from "@/components/UI/LargeLoader/DSLargeLoader";
 import cl from "@/styles/SomeClientComponent.module.css"
 import DSPopover from './UI/Popover/DSPopover';
-import Graph from "@/components/features/graphics/Graph";
 import {useModals} from "@/hooks/useModals";
+import dynamic from "next/dynamic";
+
+const Graph = dynamic(() => import("@/components/features/graphics/Graph"), {
+  ssr: false,
+});
 
 function SomeClientComponent() {
     const {openModal} = useModals();
