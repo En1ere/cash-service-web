@@ -52,9 +52,7 @@ function SomeClientComponent() {
                     <p>Контент поповера</p>
                 </DSPopover>
             )}
-            <Graph>
-
-            </Graph>
+            <Graph />
         </div>
     );
 }
