@@ -9,10 +9,9 @@ import cl from "@/styles/SomeClientComponent.module.css"
 import DSPopover from './UI/Popover/DSPopover';
 import Graph from "@/components/features/graphics/Graph";
 import {useModals} from "@/hooks/useModals";
-import DSModal from '@/components/UI/Modal/DSModal'
 
 function SomeClientComponent() {
-    const modal = useModals();
+    const {openModal} = useModals();
     const [isOpen, setIsOpen] = useState(false)
 
     const send = async () => {
@@ -33,15 +32,11 @@ function SomeClientComponent() {
             <DSButton variant={"secondary"} onClick={send}>
                 send req
             </DSButton>
-            <DSButton variant={"primary"} onClick={modal.open}>
+            <DSButton variant={"primary"} onClick={() => openModal("AuthModal")}>
                 Open modal
             </DSButton>
-            <DSModal active={modal.active} close={modal.close}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore dolorem fugit non quos vitae. Eius eos error ex iste suscipit.
-            </DSModal>
-
             <DSButton variant={"primary"} onClick={() => setIsOpen(true)}>
-                Тестовый поповер
+                Тестовый поповер будет сверху
             </DSButton>
 
             {isOpen && (
