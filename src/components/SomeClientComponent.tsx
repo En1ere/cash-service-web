@@ -5,6 +5,7 @@ import DSModal from "@/components/UI/Modal/DSModal";
 import {useModal} from "@/hooks/useModal";
 import {get} from "@/lib/api";
 import DSPopover from './UI/Popover/DSPopover';
+import Graph from "@/components/features/graphics/Graph";
 
 function SomeClientComponent() {
     const modal = useModal();
@@ -44,7 +45,9 @@ function SomeClientComponent() {
                     <p>Контент поповера</p>
                 </DSPopover>
             )}
+            <Graph>
 
+            </Graph>
         </div>
     );
 }
