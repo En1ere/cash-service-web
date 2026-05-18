@@ -1,5 +1,4 @@
 .auth {
-    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,7 +11,7 @@
 .registrationBlock {
     display: flex;
     align-items: center;
-    margin: 16px 0 0;
+    margin: 40px 0 0;
 }
 
 .registrationButton {

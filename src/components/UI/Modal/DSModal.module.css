@@ -1,4 +1,4 @@
-.modal-wrapper {
+.modalWrapper {
     position: fixed;
     top: 0;
     left: 0;
@@ -16,11 +16,11 @@
 
 .modal {
     position: relative;
-    background: var(--secondary-bg-color);
+    background-color: var(--white-primary-color);
     color: var(--dark-primary-color);
     border-radius: 20px;
     border: 0;
-    padding: 20px;
+    padding: 40px 28px;
     min-height: 200px;
     min-width: 300px;
     transition: 0.4s all;
@@ -28,16 +28,16 @@
     height: min-content;
 }
 
-.modal-wrapper__active {
+.modalWrapperActive {
     opacity: 1;
     pointer-events: all;
 }
 
-.modal__active {
+.modalActive {
     transform: scale(1);
 }
 
-.modal-close-icon {
+.modalCloseIcon {
     position: absolute;
     top: -50px;
     right: -50px;

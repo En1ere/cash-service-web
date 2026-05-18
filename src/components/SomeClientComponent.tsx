@@ -1,14 +1,18 @@
 'use client'
 import React, { useState } from 'react';
 import DSButton from "@/components/UI/Button/DSButton";
-import DSModal from "@/components/UI/Modal/DSModal";
-import {useModal} from "@/hooks/useModal";
 import {get} from "@/lib/api";
+
+import DSLoader from "@/components/UI/Loader/DSLoader";
+import DSLargeLoader from "@/components/UI/LargeLoader/DSLargeLoader";
+import cl from "@/styles/SomeClientComponent.module.css"
 import DSPopover from './UI/Popover/DSPopover';
 import Graph from "@/components/features/graphics/Graph";
+import {useModals} from "@/hooks/useModals";
+import DSModal from '@/components/UI/Modal/DSModal'
 
 function SomeClientComponent() {
-    const modal = useModal();
+    const modal = useModals();
     const [isOpen, setIsOpen] = useState(false)
 
     const send = async () => {
@@ -22,6 +26,10 @@ function SomeClientComponent() {
     }
     return (
         <div>
+            <div className={cl.loaders}>
+                <DSLoader />
+                <DSLargeLoader />
+            </div>
             <DSButton variant={"secondary"} onClick={send}>
                 send req
             </DSButton>

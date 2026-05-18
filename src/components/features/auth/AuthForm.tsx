@@ -1,25 +1,33 @@
 import React, {useState} from 'react';
 import cl from "./styles/AuthForm.module.css"
 import DSButton from "@/components/UI/Button/DSButton";
-import {post} from "@/lib/api";
 import DSInput from "@/components/UI/Input/DSInput";
+import {FormConstants} from "@/types/const/FormConstants";
+import {PartialExcept} from "@/types/PartialExcept";
+import {useAuth} from "@/hooks/useAuth";
+import {useUsers} from "@/hooks/useUsers";
+import {useModals} from "@/hooks/useModals";
 
 const AuthForm = ({signingIn}: {signingIn: boolean}) => {
-    const signIn = async () => {
-        try {
-            const response = await post("/auth/sign-in", signInCredentials)
+    const { isAuthLoading, signIn, signUp } = useAuth()
+    const { getMe } = useUsers()
+    const { closeModal } = useModals()
+
+    const signInHandler = async (e: PartialExcept<SubmitEvent, 'preventDefault'>) => {
+        e.preventDefault();
+        const res = await signIn(signInCredentials);
+        if(res.success) {
+            await getMe()
         }
-        catch(err) {
-            console.log(err)
-        }
+        closeModal("AuthModal")
     }
-    const signUp = async () => {
-        try {
-            const response = await post("/auth/sign-up", signUpCredentials)
+    const signUpHandler = async (e: PartialExcept<SubmitEvent, 'preventDefault'>) => {
+        e.preventDefault();
+        const res = await signUp(signUpCredentials);
+        if(res.success) {
+            await getMe()
         }
-        catch(err) {
-            console.log(err)
-        }
+        closeModal("AuthModal")
     }
 
     const [signInCredentials, setSignInCredentials] = useState({
@@ -35,46 +43,72 @@ const AuthForm = ({signingIn}: {signingIn: boolean}) => {
 
     return (
         <div className={cl.authFormWrapper}>
-            {signingIn ?
-                <div className={cl.authFormInputs}>
-                    <DSInput
-                        value={signingIn ? signInCredentials.identifier : signUpCredentials.email}
-                        onChange={e => setSignInCredentials({...signInCredentials, identifier: e.target.value})}
-                        placeholder={'Логин или email'}
-                    />
-                    <DSInput
-                        value={signInCredentials.password}
-                        onChange={e => setSignInCredentials({...signInCredentials, password: e.target.value})}
-                        placeholder={'Пароль'}
-                    />
-                </div>
-                :
-                <div className={cl.authFormInputs}>
-                    <DSInput
-                        value={signUpCredentials.login}
-                        onChange={e => setSignUpCredentials({...signUpCredentials, login: e.target.value})}
-                        placeholder={"Логин"}
-                    />
-                    <DSInput
-                        value={signUpCredentials.name}
-                        onChange={e => setSignUpCredentials({...signUpCredentials, name: e.target.value})}
-                        placeholder={"Имя"}
-                    />
-                    <DSInput
-                        value={signUpCredentials.email}
-                        onChange={e => setSignUpCredentials({...signUpCredentials, email: e.target.value})}
-                        placeholder={'Email'}
-                    />
-                    <DSInput
-                        value={signingIn ? signInCredentials.password : signUpCredentials.password}
-                        onChange={e => setSignUpCredentials({...signUpCredentials, password: e.target.value})}
-                        placeholder={'Пароль'}
-                    />
-                </div>
-            }
-            <DSButton className={cl.sendButton} variant={"secondary"} onClick={signingIn ? signIn : signUp}>
-                {signingIn ? "Войти" : "Зарегистрироваться"}
-            </DSButton>
+            <form onSubmit={signingIn ? signInHandler : signUpHandler} action="">
+                {signingIn ?
+                    <div className={cl.authFormInputs}>
+                        <DSInput
+                            label={FormConstants.labels.auth}
+                            value={signingIn ? signInCredentials.identifier : signUpCredentials.email}
+                            onChange={e => setSignInCredentials({...signInCredentials, identifier: e.target.value})}
+                            placeholder={FormConstants.placeholders.email}
+                            clearCb={() => setSignInCredentials({...signInCredentials, identifier: ""})}
+                            disabled={isAuthLoading}
+                        />
+                        <DSInput
+                            type={'password'}
+                            label={FormConstants.labels.password}
+                            value={signInCredentials.password}
+                            onChange={e => setSignInCredentials({...signInCredentials, password: e.target.value})}
+                            placeholder={FormConstants.placeholders.password}
+                            clearCb={() => setSignInCredentials({...signInCredentials, password: ""})}
+                            disabled={isAuthLoading}
+                        />
+                    </div>
+                    :
+                    <div className={cl.authFormInputs}>
+                        <DSInput
+                            label={FormConstants.labels.login}
+                            value={signUpCredentials.login}
+                            onChange={e => setSignUpCredentials({...signUpCredentials, login: e.target.value})}
+                            placeholder={FormConstants.placeholders.login}
+                            clearCb={() => setSignUpCredentials({...signUpCredentials, login: ""})}
+                            disabled={isAuthLoading}
+                        />
+                        <DSInput
+                            label={FormConstants.labels.name}
+                            value={signUpCredentials.name}
+                            onChange={e => setSignUpCredentials({...signUpCredentials, name: e.target.value})}
+                            placeholder={FormConstants.placeholders.name}
+                            clearCb={() => setSignUpCredentials({...signUpCredentials, name: ""})}
+                            disabled={isAuthLoading}
+                        />
+                        <DSInput
+                            label={FormConstants.labels.email}
+                            value={signUpCredentials.email}
+                            onChange={e => setSignUpCredentials({...signUpCredentials, email: e.target.value})}
+                            placeholder={FormConstants.placeholders.email}
+                            clearCb={() => setSignUpCredentials({...signUpCredentials, email: ""})}
+                            disabled={isAuthLoading}
+                        />
+                        <DSInput
+                            type={'password'}
+                            label={FormConstants.labels.password}
+                            value={signingIn ? signInCredentials.password : signUpCredentials.password}
+                            onChange={e => setSignUpCredentials({...signUpCredentials, password: e.target.value})}
+                            placeholder={FormConstants.placeholders.password}
+                            clearCb={() => setSignUpCredentials({...signUpCredentials, password: ""})}
+                            disabled={isAuthLoading}
+                        />
+                    </div>
+                }
+                <DSButton
+                    isLoading={isAuthLoading}
+                    className={cl.sendButton} variant={"primary"}
+                    type={"submit"}
+                >
+                    {signingIn ? "Войти" : "Зарегистрироваться"}
+                </DSButton>
+            </form>
         </div>
     );
 };

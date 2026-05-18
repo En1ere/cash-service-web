@@ -2,24 +2,28 @@
 import React from 'react';
 import cl from "./styles/AuthBlock.module.css"
 import DSButton from "@/components/UI/Button/DSButton";
-import DSModal from "@/components/UI/Modal/DSModal";
-import {useModal} from "@/hooks/useModal";
-import AuthModalContent from "@/components/features/auth/AuthModalContent";
+import {useModals} from "@/hooks/useModals";
+import UserBlock from "@/components/features/users/UserBlock";
+import DSLoader from "@/components/UI/Loader/DSLoader";
+import {useAuth} from "@/hooks/useAuth";
+import {useUsers} from "@/hooks/useUsers";
 
 const AuthBlock = () => {
-    const modal = useModal();
+    const {openModal} = useModals();
 
-    return (
+    const {isAuthLoading} = useAuth()
+    const {user, isUserLoading} = useUsers()
+
+    return (isAuthLoading || isUserLoading) ? <DSLoader />
+        :
+        user ?
+        <UserBlock />
+        :
         <div className={cl.authBlock}>
-            <DSButton onClick={modal.open}>
+            <DSButton onClick={() => openModal("AuthModal")}>
                 Войти
             </DSButton>
-
-            <DSModal active={modal.active} close={modal.close}>
-                <AuthModalContent />
-            </DSModal>
         </div>
-    );
 };
 
 export default AuthBlock;

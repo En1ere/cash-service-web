@@ -1,13 +1,14 @@
 .authFormWrapper {
-
+    width: 400px;
 }
 
 .authFormInputs {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
 }
 
 .sendButton {
-    margin: 16px 0 0;
+    margin: 40px 0 0;
+    width: 100%;
 }

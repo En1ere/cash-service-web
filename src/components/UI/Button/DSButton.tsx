@@ -1,14 +1,15 @@
 import React, {ButtonHTMLAttributes, ReactNode, forwardRef} from 'react';
 import cl from "./DSButton.module.css"
-
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'empty' | 'destructive';
+import DSLoader from "@/components/UI/Loader/DSLoader";
+import {StyleVariants} from "@/types/StyleVariants";
 
 interface DSButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'> {
     children: ReactNode;
-    variant?: ButtonVariant;
+    variant?: StyleVariants;
     size?: 'sm' | 'md' | 'lg';
     disabled?: boolean;
     className?: string;
+    isLoading?: boolean;
 }
 
 const DSButton = forwardRef<HTMLButtonElement, DSButtonProps>(
@@ -17,6 +18,7 @@ const DSButton = forwardRef<HTMLButtonElement, DSButtonProps>(
          variant = 'primary',
          size = 'md',
          disabled = false,
+         isLoading = false,
          className = '',
          ...props
      }, ref) => {
@@ -26,11 +28,24 @@ const DSButton = forwardRef<HTMLButtonElement, DSButtonProps>(
         return (
             <button
                 ref={ref}
-                className={`${cl['ds-button']} ${variantClass} ${sizeClass} ${className}`}
+                className={`
+                    ${cl.dsButton} 
+                    ${variantClass} 
+                    ${sizeClass} 
+                    ${className} 
+                    ${isLoading && cl.loading}
+                `}
                 disabled={disabled}
                 {...props}
             >
-                {children}
+                {isLoading ?
+                    <div className={cl.loadingWrapper}>
+                        <DSLoader variant={variant} />
+                    </div>
+                :
+                    children
+                }
+
             </button>
         );
     }

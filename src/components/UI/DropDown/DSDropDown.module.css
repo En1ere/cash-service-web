@@ -1,0 +1,50 @@
+.dropDownWrapper {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.listWrapper {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 20px);
+    background-color: transparent;
+    border-radius: 20px;
+    border: 0;
+    transition: all 0.2s;
+    line-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-shadow: none;
+    min-width: 100%;
+}
+
+.listWrapper.open {
+    line-height: 1.2;
+    background-color: var(--white-primary-color);
+    box-shadow: var(--primary-shadow);
+}
+
+.item {
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    color: var(--dark-primary-color);
+    text-decoration: none;
+}
+
+.item.open {
+    padding: 8px 20px;
+}
+
+.item:hover {
+    background: var(--inactive-color);
+    color: var(--white-primary-color);
+}

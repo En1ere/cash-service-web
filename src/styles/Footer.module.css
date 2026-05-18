@@ -1,7 +1,7 @@
 .footer {
     width: 100%;
     z-index: 1;
-    background: var(--primary-bg-color);
+    background: var(--dark-primary-color);
     height: 100px;
     display: flex;
     justify-content: space-around;
@@ -11,6 +11,6 @@
 }
 
 .title {
-    color: var(--secondary-color);
+    color: var(--white-primary-color);
     font-size: 70px;
 }
