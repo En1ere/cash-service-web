@@ -13,4 +13,46 @@
     --red-primary-color: #db346e;
     --primary-color-ghost: rgba(143, 118, 245, 0.40);
     --red-primary-color-ghost: rgba(219, 52, 110, 0.65);
+
+    /* Gap */
+    --gap-xs: 8px;
+    --gap-s: 16px;
+    --gap-m: 20px;
+    --gap-l: 24px;
+    --gap-xl: 32px;
+    --gap-xxl: 40px;
+
+    /* text-size */
+    --text-size-xs: 12px;
+    --text-size-s: 14px;
+    --text-size-m: 16px;
+    --text-size-l: 18px;
+    --text-size-xl: 20px;
+    --text-size-xxl: 24px;
+    --text-size-xxxl: 32px;
+    --text-size-xxxxl: 40px;
+
+    /* font-weight */
+    --font-weight-xxs: 400;
+    --font-weight-xs: 500;
+    --font-weight-s: 600;
+    --font-weight-m: 700;
+    --font-weight-l: 800;
+    --font-weight-xl: 900;
+
+    /* z-index */
+    --z-index-xs: 1;
+    --z-index-s: 100;
+    --z-index-m: 1000;
+
+    /* border-radius */
+    --border-radius-xs: 16px;
+    --border-radius-s: 24px;
+    --border-radius-m: 30px;
+    --border-radius-l: 40px;
+    --border-radius-xl: 999px;
+
+    /* border-width */
+    --border-width-xs: 1px;
+    --border-width-s: 2px;
 }
