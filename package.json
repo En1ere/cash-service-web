@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prettier": "prettier . --write"
   },
   "dependencies": {
+    "@en1ere/commitlint": "^1.0.0",
+    "@en1ere/prettier": "^1.0.0",
     "@visx/shape": "^4.0.0-alpha.11",
     "@visx/visx": "^4.0.0-alpha.11",
     "axios": "^1.16.0",
